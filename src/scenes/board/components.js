@@ -52,7 +52,7 @@ export default class extends PureComponent {
     );
     const windowBottom = windowHeight + window.pageYOffset;
 
-    if (windowBottom >= docHeight - docHeight / 4) {
+    if (windowBottom >= docHeight * 3 / 4) {
       const nextPage = this.state.page + 1;
       this.setState(
         () => {

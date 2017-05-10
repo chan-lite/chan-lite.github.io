@@ -24,12 +24,12 @@ export default function(props: PropsType) {
   const { no, board, sub, com } = props;
 
   return (
-    <Container>
-      <Link href={`/${board}/${no}`}>
+    <Link href={`/${board}/${no}`}>
+      <Container>
         <Media board={board} {...props} />
         <h1>{sub}</h1>
         <article dangerouslySetInnerHTML={{ __html: com }} />
-      </Link>
-    </Container>
+      </Container>
+    </Link>
   );
 }

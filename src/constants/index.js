@@ -2,6 +2,8 @@
 
 export const BASE = "http://evanjones.xyz/proxy-chan/";
 
+export const CHAN_BASE = "http://i.4cdn.org/";
+
 export const BOARDS = `${BASE}landing.php`;
 
 export function GET_THREADS(board: string, page: number) {
