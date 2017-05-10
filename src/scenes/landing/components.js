@@ -35,7 +35,15 @@ function board({ title, board }, index) {
   );
 }
 
-export default function({ requestBoards, boards }) {
+type BoardsType = any;
+
+type PropsType = {
+  requestBoards: Function,
+  boards: BoardsType
+};
+
+export default function(props: PropsType) {
+  const { requestBoards, boards } = props;
   if (boards.length === 0) {
     requestBoards();
   }

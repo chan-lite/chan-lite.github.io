@@ -10,7 +10,7 @@ function setPosts(data) {
   };
 }
 
-export function requestPosts(board, thread) {
+export function requestPosts(board: string, thread: string) {
   return async function(dispatch: DispatchType) {
     try {
       const response = await fetch(GET_POSTS(board, thread));

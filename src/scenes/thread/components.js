@@ -6,7 +6,25 @@ import { Page } from "../../components/ui/";
 import OriginalPost from "./originalPost";
 import NormalPost from "./normalPost";
 
-export default function({ match, requestPosts, posts }) {
+type PostObject = any;
+
+type ParamsType = {
+  board: string,
+  thread: string
+};
+
+type MatchType = {
+  params: ParamsType
+};
+
+type PropsType = {
+  match: MatchType,
+  requestPosts: Function,
+  posts: PostObject
+};
+
+export default function(props: PropsType) {
+  const { match, requestPosts, posts } = props;
   const { board, thread } = match.params;
   let aPosts = posts[`/${board}/${thread}`];
 

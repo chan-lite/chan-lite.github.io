@@ -13,7 +13,14 @@ const Container = Styled.div`
   border-radius: 3px;
 `;
 
-export default function(props) {
+type PropsType = {
+  no: number,
+  board: string,
+  sub: string,
+  com: string
+};
+
+export default function(props: PropsType) {
   const { no, board, sub, com } = props;
 
   return (

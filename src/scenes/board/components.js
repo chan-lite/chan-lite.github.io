@@ -4,14 +4,16 @@ import React, { PureComponent } from "react";
 import { Page } from "../../components/ui/";
 import Thread from "./thread";
 
+type StateType = {
+  page: number,
+  loading: boolean
+};
+
 export default class extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      page: 1,
-      loading: false
-    };
-  }
+  state: StateType = {
+    page: 1,
+    loading: false
+  };
 
   componentDidMount() {
     this.props.requestBoard(this.props.match.params.board, this.state.page);
@@ -28,8 +30,15 @@ export default class extends PureComponent {
     });
   }
 
-  handleScroll = event => {
-    if (this.state.loading) return;
+  handleScroll = () => {
+    if (!document.body || !document.documentElement) {
+      throw new Error(
+        "Cannot find `body` or `documentElement` on the `document` object."
+      );
+    } else if (this.state.loading) {
+      return;
+    }
+
     const windowHeight = "innerHeight" in window
       ? window.innerHeight
       : document.documentElement.offsetHeight;

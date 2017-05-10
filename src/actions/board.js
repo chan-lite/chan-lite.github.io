@@ -17,7 +17,7 @@ function addBoard(data) {
   };
 }
 
-export function requestBoard(board, page) {
+export function requestBoard(board: string, page: number) {
   return async function(dispatch: DispatchType) {
     try {
       const response = await fetch(GET_THREADS(board, page));

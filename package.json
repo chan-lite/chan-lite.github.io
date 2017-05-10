@@ -1,7 +1,6 @@
 {
   "name": "react-chan",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "animated": "^0.2.0",
     "history": "^4.6.1",
@@ -24,8 +23,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && react-snapshot && sw-precache --config=sw-precache-config.js",
+    "build": "react-scripts build && react-snapshot && sw-precache --config=serviceworker.js",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "flow": "node_modules/.bin/flow"
   }
 }

@@ -14,6 +14,10 @@
 .*/node_modules/react-native-experimental-navigation/.*
 .*/node_modules/react-native-keyboard-aware-scroll-view/.*
 
+' custom ignores
+.*/node_modules/animated/.*
+.*/node_modules/redux-offline/src/defaults/persist.native.js
+
 
 ; Ignore duplicate module providers
 ; For RN Apps installed via npm, "Libraries" folder is inside

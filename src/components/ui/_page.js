@@ -1,9 +1,17 @@
 // @flow
 
 import React from "react";
+import type { Element } from "react";
 import Styled from "styled-components";
 
-export default function({ children, width }) {
+type PropsType = {
+  children?: Element<any>,
+  width?: number
+};
+
+export default function(props: PropsType) {
+  const { children, width } = props;
+
   const Page = Styled.div`
     max-width: ${width || 600}px;
     margin: 0 auto;
