@@ -12,7 +12,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    requestBoard: board => dispatch(requestBoard(board))
+    requestBoard: (board, page) => dispatch(requestBoard(board, page))
   };
 }
 

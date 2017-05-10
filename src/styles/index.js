@@ -12,4 +12,7 @@ export const GlobalStyles = injectGlobal`
     font-family: Arial, sans-serif;
     color: white;
   }
+  a {
+    color: #81a2be;
+  }
 `;
