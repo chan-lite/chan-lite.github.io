@@ -18,6 +18,8 @@ const Image = Styled.img`
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 1px;
   overflow: hidden;
+  width: 100%;
+  object-fit: cover;
 `;
 
 class JPEG extends PureComponent {
@@ -27,11 +29,15 @@ class JPEG extends PureComponent {
   };
 
   componentDidMount() {
-    zooming.listen(findDOMNode(this.element));
+    if (!this.props.noZoom) {
+      zooming.listen(findDOMNode(this.element));
+    }
   }
 
   handleClick = event => {
-    event.stopPropagation();
+    if (!this.props.noZoom) {
+      event.stopPropagation();
+    }
   };
 
   handleOnHover = event => {
@@ -56,8 +62,7 @@ class JPEG extends PureComponent {
         onMouseEnter={this.handleOnHover}
         onClick={this.handleClick}
         style={{
-          height: `${tn_h}px`,
-          width: `${tn_w}px`
+          height: `${tn_h}px`
         }}
         src={`${IMAGE_BASE}${board}/${tim}s.jpg`}
       />

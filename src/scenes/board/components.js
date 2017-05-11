@@ -1,23 +1,47 @@
-// @flow
-
 import React, { PureComponent } from "react";
 import Styled from "styled-components";
-import { Welcome } from "../../components/general/";
-import { Page } from "../../components/ui/";
-import Thread from "./thread";
+import { Media, Description } from "../../components/general/";
+import { Link } from "../../components/ui/";
+import { BoardLinksConnected } from "../landing/";
 
-type StateType = {
-  page: number,
-  loading: boolean
-};
-
-const Row = Styled.div`
-  margin: 0 -7.5px;
+const Area = Styled.div`
+  margin: 15px 7.5px 0;
 `;
 
-export default class extends PureComponent {
-  state: StateType = {
-    page: 1,
+const Grid = Styled.div`
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+`;
+
+const Column = Styled.div`
+  display: table-cell;
+  vertical-align: top;
+`;
+
+const Item = Styled.div`
+  margin: 0 7.5px 15px;
+`;
+
+const ContainerWithHover = Styled.div`
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+`;
+
+const ContainerInner = Styled.div`
+  padding: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 500px;
+`;
+
+class ThreadList extends PureComponent {
+  state = {
+    page: 0,
     loading: false
   };
 
@@ -25,10 +49,12 @@ export default class extends PureComponent {
     window.scroll(0, 0);
     this.props.requestBoard(this.props.match.params.board, this.state.page);
     window.addEventListener("scroll", this.handleScroll);
+    window.addEventListener("resize", () => this.forceUpdate());
   }
 
   componentWillUnmount() {
     window.removeEventListener("scroll", this.handleScroll);
+    window.removeEventListener("resize", () => this.forceUpdate());
   }
 
   componentWillReceiveProps() {
@@ -74,27 +100,114 @@ export default class extends PureComponent {
 
   render() {
     const { threads, match } = this.props;
+    const { board } = match.params;
+    let boardThreads = threads[`/${board}`];
 
-    const aThreads = typeof threads[`/${match.params.board}`] !== "undefined"
-      ? threads[`/${match.params.board}`]
-      : [];
+    if (typeof boardThreads === "undefined") {
+      boardThreads = [];
+    }
+
+    let columns = 1;
+
+    if (window.innerWidth > 1600) {
+      columns = 5;
+    } else if (window.innerWidth > 1500) {
+      columns = 4;
+    } else if (window.innerWidth > 1100) {
+      columns = 3;
+    } else if (window.innerWidth > 500) {
+      columns = 2;
+    }
+
+    function reOrder(arr) {
+      const newArr = [];
+      for (var e = 0; e < columns; e++) {
+        newArr.push([]);
+      }
+
+      arr.forEach((item, index) => {
+        const col = index % columns;
+        newArr[col].push(item);
+      });
+
+      return newArr;
+    }
 
     return (
-      <Page>
-        <Welcome board={match.params.board} />
-        <Row>
-          {aThreads.map(function(thread, index) {
-            return index === 0
-              ? null
-              : <Thread
-                  match={match}
-                  key={index - 1}
-                  {...thread}
-                  board={match.params.board}
-                />;
+      <Area>
+        <Grid>
+          {reOrder(boardThreads).map((arr, index) => {
+            return (
+              <Column key={index}>
+                {arr.map((thread, xindex) => {
+                  const { no, sub } = thread;
+
+                  return (
+                    <Item key={xindex}>
+                      <Link href={`/${board}/${no}`}>
+                        <ContainerWithHover>
+                          <ContainerInner>
+                            <Media board={board} {...thread} />
+                            <h1>{sub}</h1>
+                            <Description
+                              board={board}
+                              match={match}
+                              {...thread}
+                            />
+                          </ContainerInner>
+                        </ContainerWithHover>
+                      </Link>
+                    </Item>
+                  );
+                })}
+              </Column>
+            );
           })}
-        </Row>
-      </Page>
+        </Grid>
+      </Area>
     );
   }
+}
+
+const Panels = Styled.div`
+
+`;
+
+const Left = Styled.div`
+  position: fixed;
+  overflow-y: scroll;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 400px;
+`;
+
+const LeftInner = Styled.div`
+  margin: 15px 0 15px 15px;
+  width: calc(100% - 22px);
+`;
+
+const Right = Styled.div`
+  display: table-cell;
+  vertical-align: top;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: calc(100% - 400px);
+`;
+
+export default function(props) {
+  return (
+    <Panels>
+      <Left>
+        <LeftInner>
+          <BoardLinksConnected />
+        </LeftInner>
+      </Left>
+      <Right>
+        <ThreadList {...props} />
+      </Right>
+    </Panels>
+  );
 }

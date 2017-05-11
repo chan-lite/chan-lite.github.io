@@ -65,6 +65,7 @@ class Description extends PureComponent {
   render() {
     return (
       <article
+        style={{ overflow: "hidden" }}
         ref={o => (this.element = o)}
         dangerouslySetInnerHTML={{ __html: this.props.com }}
       />

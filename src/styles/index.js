@@ -20,4 +20,7 @@ export const GlobalStyles = injectGlobal`
     max-width: 100%;
     max-height: 90vh;
   }
+  .quote {
+    color: #789922;
+  }
 `;
