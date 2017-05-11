@@ -22,14 +22,29 @@ const Image = Styled.img`
 
 class JPEG extends PureComponent {
   element = null;
+  state = {
+    hasLoaded: false
+  };
 
   componentDidMount() {
     zooming.listen(findDOMNode(this.element));
   }
 
   handleClick = event => {
-    event.target.src = event.target.src.replace(`s.jpg`, `${this.props.ext}`);
     event.stopPropagation();
+  };
+
+  handleOnHover = event => {
+    if (this.state.hasLoaded) return;
+    const el = event.target;
+    this.setState(
+      () => {
+        return { hasLoaded: true };
+      },
+      () => {
+        el.src = el.src.replace(`s.jpg`, `${this.props.ext}`);
+      }
+    );
   };
 
   render() {
@@ -38,6 +53,7 @@ class JPEG extends PureComponent {
     return (
       <Image
         ref={o => (this.element = o)}
+        onMouseEnter={this.handleOnHover}
         onClick={this.handleClick}
         style={{
           height: `${tn_h}px`,
@@ -111,8 +127,11 @@ export default function(props: PropsType) {
     case ".webm": {
       return <Video board={props.board} {...props} />;
     }
+    case undefined: {
+      return null;
+    }
     default: {
-      alert(props.ext);
+      console.log(props.ext);
       return null;
     }
   }

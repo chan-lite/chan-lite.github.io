@@ -7,11 +7,12 @@ import Styled from "styled-components";
 
 const Pointer = Styled.div`
   cursor: pointer;
+  vertical-align: top;
 `;
 
-function Component({ href, children, navigate }) {
+function Component({ href, children, navigate, style = {} }) {
   return (
-    <Pointer onClick={navigate(href)}>
+    <Pointer style={style} onClick={navigate(href)}>
       {children}
     </Pointer>
   );

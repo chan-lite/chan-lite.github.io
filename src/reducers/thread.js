@@ -11,10 +11,24 @@ const initial = {
 export default function(state: StateType = initial, action: ActionType) {
   switch (action.type) {
     case "SET_POSTS": {
+      const somePosts = action.payload.posts.map(aPost => {
+        aPost["highlighted"] = false;
+        return aPost;
+      });
       const data = {};
-      data[action.payload.name] = action.payload.posts;
+      data[action.payload.name] = somePosts;
       const posts = Object.assign({}, state.posts, data);
       return Object.assign({}, state, { posts: posts });
+    }
+    case "HIGHLIGHT_POST": {
+      const { board, thread, post } = action.payload;
+      const posts = state.posts[`/${board}/${thread}`].map(aPost => {
+        aPost["highlighted"] = aPost.no.toString() === post ? true : false;
+        return aPost;
+      });
+      const data = state.posts;
+      data[action.payload.name] = posts;
+      return Object.assign({}, state, { posts: data });
     }
     default: {
       return state;

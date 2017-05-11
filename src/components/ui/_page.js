@@ -17,8 +17,7 @@ export default function(props: PropsType) {
     margin: 0 auto;
     padding: 50px 15px 250px;
     @media (max-width: 748px) {
-      padding-top: 15px;
-      padding-bottom: 50px;
+      padding: 15px 0 50px;
     }
   `;
   return (

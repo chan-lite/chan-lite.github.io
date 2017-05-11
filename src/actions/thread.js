@@ -25,3 +25,10 @@ export function requestPosts(board: string, thread: string) {
     }
   };
 }
+
+export function highlightPost(params) {
+  return {
+    type: "HIGHLIGHT_POST",
+    payload: params
+  };
+}

@@ -11,6 +11,7 @@ export const GlobalStyles = injectGlobal`
     background-color: #1d1f21;
     font-family: Arial, sans-serif;
     color: white;
+    height: 101vh;
   }
   a {
     color: #81a2be;

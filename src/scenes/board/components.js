@@ -1,6 +1,8 @@
 // @flow
 
 import React, { PureComponent } from "react";
+import Styled from "styled-components";
+import { Welcome } from "../../components/general/";
 import { Page } from "../../components/ui/";
 import Thread from "./thread";
 
@@ -9,6 +11,10 @@ type StateType = {
   loading: boolean
 };
 
+const Row = Styled.div`
+  margin: 0 -7.5px;
+`;
+
 export default class extends PureComponent {
   state: StateType = {
     page: 1,
@@ -16,6 +22,7 @@ export default class extends PureComponent {
   };
 
   componentDidMount() {
+    window.scroll(0, 0);
     this.props.requestBoard(this.props.match.params.board, this.state.page);
     window.addEventListener("scroll", this.handleScroll);
   }
@@ -74,11 +81,19 @@ export default class extends PureComponent {
 
     return (
       <Page>
-        {aThreads.map(function(thread, index) {
-          return index === 0
-            ? null
-            : <Thread key={index - 1} {...thread} board={match.params.board} />;
-        })}
+        <Welcome board={match.params.board} />
+        <Row>
+          {aThreads.map(function(thread, index) {
+            return index === 0
+              ? null
+              : <Thread
+                  match={match}
+                  key={index - 1}
+                  {...thread}
+                  board={match.params.board}
+                />;
+          })}
+        </Row>
       </Page>
     );
   }

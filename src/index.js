@@ -32,6 +32,7 @@ render(
       <Provider store={store}>
         <HashRouter>
           <Switch>
+            <Route path="/:board/:thread/:post" component={ThreadScene} />
             <Route path="/:board/:thread" component={ThreadScene} />
             <Route path="/:board" component={BoardScene} />
             <Route path="/" component={LandingScene} />

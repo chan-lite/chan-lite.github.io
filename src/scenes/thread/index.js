@@ -2,7 +2,7 @@
 
 import { connect } from "react-redux";
 import Component from "./components";
-import { requestPosts } from "../../actions/thread";
+import { requestPosts, highlightPost } from "../../actions/thread";
 
 function mapStateToProps(state) {
   return {
@@ -12,7 +12,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    requestPosts: (board, thread) => dispatch(requestPosts(board, thread))
+    requestPosts: (board, thread) => dispatch(requestPosts(board, thread)),
+    highlightPost: params => dispatch(highlightPost(params))
   };
 }
 

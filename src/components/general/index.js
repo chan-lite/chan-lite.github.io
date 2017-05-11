@@ -1,7 +1,9 @@
 // @flow
 
-import OnMount from "./_onMount";
+import Welcome from "./_welcome";
 import Media from "./_media";
+import Description from "./_description";
 
-export { OnMount };
+export { Welcome };
 export { Media };
+export { Description };
