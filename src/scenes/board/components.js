@@ -2,7 +2,6 @@ import React, { PureComponent } from "react";
 import Styled from "styled-components";
 import { Media, Description } from "../../components/general/";
 import { Link } from "../../components/ui/";
-import { BoardLinksConnected } from "../landing/";
 
 const Area = Styled.div`
   margin: 15px 7.5px 0;
@@ -169,45 +168,6 @@ class ThreadList extends PureComponent {
   }
 }
 
-const Panels = Styled.div`
-
-`;
-
-const Left = Styled.div`
-  position: fixed;
-  overflow-y: scroll;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 400px;
-`;
-
-const LeftInner = Styled.div`
-  margin: 15px 0 15px 15px;
-  width: calc(100% - 22px);
-`;
-
-const Right = Styled.div`
-  display: table-cell;
-  vertical-align: top;
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: calc(100% - 400px);
-`;
-
 export default function(props) {
-  return (
-    <Panels>
-      <Left>
-        <LeftInner>
-          <BoardLinksConnected />
-        </LeftInner>
-      </Left>
-      <Right>
-        <ThreadList {...props} />
-      </Right>
-    </Panels>
-  );
+  return <ThreadList {...props} />;
 }
