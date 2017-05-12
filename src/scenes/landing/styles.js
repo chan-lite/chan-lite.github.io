@@ -1,8 +1,15 @@
-import React from "react";
 import Styled from "styled-components";
-import { Link } from "../../components/ui/";
 
-const Row = Styled.div`
+export const Title = Styled.h1`
+  margin: 0 0 15px;
+`;
+export const Container = Styled.div`
+  padding: 50px 15px 250px;
+  max-width: 600px;
+  margin: 0 auto;
+`;
+
+export const Row = Styled.div`
    display: flex;
    margin: 0 -7.5px;
    align-items: left;
@@ -13,10 +20,9 @@ const Row = Styled.div`
    align-content: flex-end;
 `;
 
-const Button = Styled.div`
+export const Button = Styled.div`
   margin: 0 7.5px 15px;
   font-size: 18px;
-  padding: 10px 15px;
   cursor: pointer;
   border-radius: 2px;
   background-color: rgba(255, 255, 255, 0.1);
@@ -39,19 +45,3 @@ const Button = Styled.div`
     width: calc(100% - 45px);
   }
 `;
-
-export default function(props) {
-  return (
-    <Row>
-      {props.boards.map(({ board }, index) => {
-        return (
-          <Button key={index}>
-            <Link href={`/${board}`}>
-              /{board}/
-            </Link>
-          </Button>
-        );
-      })}
-    </Row>
-  );
-}

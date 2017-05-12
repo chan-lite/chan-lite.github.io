@@ -1,74 +1,8 @@
 // @flow
 
 import React, { PureComponent } from "react";
-import { findDOMNode } from "react-dom";
-import Styled from "styled-components";
-import Zooming from "zooming";
-import { BASE, CHAN_BASE } from "../../constants/";
-
-const zooming = new Zooming({
-  bgColor: "#1d1f21",
-  scaleExtra: 0
-});
-
-const IMAGE_BASE = `${BASE}image.php?image=${CHAN_BASE}`;
-
-const Image = Styled.img`
-  margin: 0 auto;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 1px;
-  overflow: hidden;
-  width: 100%;
-  object-fit: cover;
-`;
-
-class JPEG extends PureComponent {
-  element = null;
-  state = {
-    hasLoaded: false
-  };
-
-  componentDidMount() {
-    if (!this.props.noZoom) {
-      zooming.listen(findDOMNode(this.element));
-    }
-  }
-
-  handleClick = event => {
-    if (!this.props.noZoom) {
-      event.stopPropagation();
-    }
-  };
-
-  handleOnHover = event => {
-    if (this.state.hasLoaded) return;
-    const el = event.target;
-    this.setState(
-      () => {
-        return { hasLoaded: true };
-      },
-      () => {
-        el.src = el.src.replace(`s.jpg`, `${this.props.ext}`);
-      }
-    );
-  };
-
-  render() {
-    const { tim, board, tn_h, tn_w } = this.props;
-
-    return (
-      <Image
-        ref={o => (this.element = o)}
-        onMouseEnter={this.handleOnHover}
-        onClick={this.handleClick}
-        style={{
-          height: `${tn_h}px`
-        }}
-        src={`${IMAGE_BASE}${board}/${tim}s.jpg`}
-      />
-    );
-  }
-}
+import { CHAN_BASE } from "../../constants/";
+import OfflineImage from "./_media_image";
 
 class Video extends PureComponent {
   state = {
@@ -127,7 +61,7 @@ export default function(props: PropsType) {
     case ".png":
     case ".gif":
     case ".jpg": {
-      return <JPEG board={props.board} {...props} />;
+      return <OfflineImage board={props.board} {...props} />;
     }
     case ".webm": {
       return <Video board={props.board} {...props} />;

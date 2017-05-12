@@ -1,26 +1,7 @@
-import React, { PureComponent } from "react";
-import Styled from "styled-components";
-import { RequestBoardsOnMount } from "../../decorators/requestBoardsOnMount";
-import { ReceiveBoardsAsProps } from "../../decorators/ReceiveBoardsAsProps";
+import React from "react";
 import { Link } from "../../components/ui/";
-import BoardLinks from "./boardLinks";
-
-const Title = Styled.h1`
-  margin: 0 0 15px;
-`;
-const Container = Styled.div`
-  padding: 50px 15px 250px;
-  max-width: 600px;
-  margin: 0 auto;
-`;
-
-@RequestBoardsOnMount()
-@ReceiveBoardsAsProps()
-class WithBoards extends PureComponent {
-  render() {
-    return <BoardLinks {...this.props} />;
-  }
-}
+import Boards from "./boards";
+import { Container, Title } from "./styles";
 
 export default function() {
   return (
@@ -28,7 +9,7 @@ export default function() {
       <Link href="/">
         <Title>React Chan</Title>
       </Link>
-      <BoardLinksConnected />
+      <Boards />
     </Container>
   );
 }

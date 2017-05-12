@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import { connect } from "react-redux";
 
 function mapStateToProps(state) {
@@ -7,10 +7,6 @@ function mapStateToProps(state) {
   };
 }
 
-export function ReceiveBoardsAsProps() {
-  return Decorated => {
-    return connect(mapStateToProps)(function(props) {
-      return <Decorated {...props} />;
-    });
-  };
+export function ReceiveBoardsAsProps(Decorated) {
+  return connect(mapStateToProps)(props => <Decorated {...props} />);
 }

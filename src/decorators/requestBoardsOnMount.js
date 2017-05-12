@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
+import { requestBoards } from "../actions/landing";
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -7,17 +8,15 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export function RequestBoardsOnMount() {
-  return Decorated => {
-    return connect(null, mapDispatchToProps)(
-      class extends PureComponent {
-        componentDidMount() {
-          this.props.requestBoards();
-        }
-        render() {
-          return <Decorated {...this.props} boards={this.props.boards} />;
-        }
+export function RequestBoardsOnMount(Decorated) {
+  return connect(null, mapDispatchToProps)(
+    class extends PureComponent {
+      componentDidMount() {
+        this.props.requestBoards();
       }
-    );
-  };
+      render() {
+        return <Decorated {...this.props} />;
+      }
+    }
+  );
 }

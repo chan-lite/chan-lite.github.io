@@ -40,7 +40,7 @@ const ContainerInner = Styled.div`
 
 class ThreadList extends PureComponent {
   state = {
-    page: 0,
+    page: 1,
     loading: false
   };
 
