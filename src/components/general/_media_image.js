@@ -5,7 +5,7 @@ import Zooming from "zooming";
 import { BASE, CHAN_BASE } from "../../constants/";
 
 const zooming = new Zooming({
-  bgColor: "#1d1f21",
+  bgColor: "#212121",
   scaleExtra: 0
 });
 

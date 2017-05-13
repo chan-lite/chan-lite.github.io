@@ -8,7 +8,7 @@ export const GlobalStyles = injectGlobal`
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #1d1f21;
+    background-color: #212121;
     font-family: Arial, sans-serif;
     color: white;
     height: 101vh;

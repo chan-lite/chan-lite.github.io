@@ -7,7 +7,7 @@ export default function() {
   return (
     <Container>
       <Link href="/">
-        <Title>React Chan</Title>
+        <Title className="ms-font-su">React Chan</Title>
       </Link>
       <Boards />
     </Container>
