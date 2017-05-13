@@ -33,8 +33,6 @@ const ContainerWithHover = Styled.div`
 
 const ContainerInner = Styled.div`
   padding: 15px;
-  overflow: hidden;
-  text-overflow: ellipsis;
   max-height: 500px;
 `;
 
