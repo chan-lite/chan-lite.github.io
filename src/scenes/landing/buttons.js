@@ -2,10 +2,7 @@ import React, { PureComponent } from "react";
 import { Link } from "../../components/ui/";
 import { Row, ButtonContainer } from "./styles";
 
-import {
-  CompoundButton,
-  IButtonProps
-} from "office-ui-fabric-react/lib/Button";
+import { CompoundButton } from "office-ui-fabric-react/lib/Button";
 import { SearchBox } from "office-ui-fabric-react/lib/SearchBox";
 
 function applyStateTextChange(text) {

@@ -7,6 +7,7 @@ export function BindScrollBehavior(Decorated, nearBottom) {
     customEventObservable: null;
 
     componentDidMount() {
+      window.scroll(0, 0);
       this.customEventObservable = this.getObservable().subscribe(nearBottom);
       window.addEventListener("scroll", this.handleScroll);
     }

@@ -1,7 +1,5 @@
 import React, { PureComponent } from "react";
 import { findDOMNode } from "react-dom";
-import { Media, Description } from "../../components/general/";
-import { Container } from "../../components/ui/";
 import { Card } from "../../components/general/";
 import { CardContainer } from "./styles";
 
@@ -32,6 +30,7 @@ export default class extends PureComponent {
       <div className={className} ref={o => (this.element = o)}>
         <CardContainer className="postRootContainer">
           <Card
+            showNumber={true}
             match={this.props.match}
             imageHeight={250}
             board={this.props.board}

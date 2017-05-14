@@ -1,32 +1,10 @@
 import React from "react";
-import { injectGlobal } from "styled-components";
 import { Media, Description } from "./index.js";
-
-injectGlobal`
-  .ms-DocumentCard {
-    max-width: 99999999px !important;
-    min-width: 0 !important;
-
-    .ms-DocumentCardTitle {
-      padding: 15px 15px 0;
-      height: auto;
-    }
-
-    .ms-DocumentCardActivity {
-      padding: 15px;
-    }
-    
-    .ms-DocumentCardActivity-details {
-      top: 15px;
-    }
-  }
-`;
 
 import {
   DocumentCard,
   DocumentCardActivity,
-  DocumentCardTitle,
-  IDocumentCardPreviewProps
+  DocumentCardTitle
 } from "office-ui-fabric-react/lib/DocumentCard";
 
 function decode(someString) {
@@ -38,15 +16,19 @@ function decode(someString) {
 }
 
 export default function(props) {
-  const { board, item } = props;
+  const { board, item, showNumber } = props;
 
   return (
     <DocumentCard>
 
       <Media imageHeight={props.imageHeight} board={board} {...item} />
 
-      {item.sub
+      {item.sub && !showNumber
         ? <DocumentCardTitle title={decode(item.sub)} shouldTruncate={false} />
+        : null}
+
+      {showNumber
+        ? <DocumentCardTitle title={item.no} shouldTruncate={false} />
         : null}
 
       <DocumentCardActivity

@@ -1,4 +1,4 @@
-import Styled, { injectGlobal } from "styled-components";
+import Styled from "styled-components";
 
 export const Container = Styled.div`
   padding: 15px 15px 250px;
@@ -28,36 +28,5 @@ export const ButtonContainer = Styled.div`
   }
   @media (max-width: 500px) {
     width: calc(100% - 15px);
-  }
-`;
-
-injectGlobal`
-  .buttonRootContainer  {
-
-    .ms-SearchBox {
-      margin-bottom: 15px;
-
-      .ms-SearchBox-field {
-        color: white;
-      }
-    }
-
-    .ms-Button--compound {
-      width: 100%;
-      max-width: 99999px;
-      overflow: hidden;
-
-      .ms-Button-label {
-        margin-bottom: 0;
-        padding-bottom: 5px;
-      }
-
-      .ms-Button-label,
-      .ms-Button-description {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-    }
   }
 `;

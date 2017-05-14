@@ -1,4 +1,4 @@
-import Styled, { injectGlobal } from "styled-components";
+import Styled from "styled-components";
 
 export const Page = Styled.div`
   padding: 15px 15px 250px;
