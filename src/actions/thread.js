@@ -14,10 +14,10 @@ export function requestPosts(board: string, thread: string) {
   return async function(dispatch: DispatchType) {
     try {
       const response = await fetch(GET_POSTS(board, thread));
-      const { posts } = await response.json();
+      const { Posts } = await response.json();
       const data = {
         name: `/${board}/${thread}`,
-        posts: posts
+        posts: Posts
       };
       dispatch(setPosts(data));
     } catch (err) {

@@ -21,10 +21,10 @@ export function requestBoard(board: string, page: number) {
   return async function(dispatch: DispatchType) {
     try {
       const response = await fetch(GET_THREADS(board, page));
-      const { threads } = await response.json();
+      const { Threads } = await response.json();
       const data = {
         name: `/${board}`,
-        threads: threads
+        threads: Threads
       };
       if (page === 1) {
         dispatch(setBoards(data));

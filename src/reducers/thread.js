@@ -11,10 +11,26 @@ const initial = {
 export default function(state: StateType = initial, action: ActionType) {
   switch (action.type) {
     case "SET_POSTS": {
-      const somePosts = action.payload.posts.map(aPost => {
-        aPost["highlighted"] = false;
-        return aPost;
-      });
+      const somePosts = action.payload.posts
+        .map(aPost => {
+          aPost["highlighted"] = false;
+          return aPost;
+        })
+        .map(({ No, Now, Name, Com, Filename, Ext, Tn_w, Tn_h, Tim, Time }) => {
+          return {
+            no: No,
+            now: Now,
+            name: Name,
+            com: Com,
+            filename: Filename,
+            ext: Ext,
+            tn_w: Tn_w,
+            tn_h: Tn_h,
+            tim: Tim,
+            time: Time
+          };
+        });
+
       const data = {};
       data[action.payload.name] = somePosts;
       const posts = Object.assign({}, state.posts, data);
