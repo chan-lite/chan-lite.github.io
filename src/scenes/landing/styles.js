@@ -5,7 +5,7 @@ export const Container = Styled.div`
   max-width: 600px;
   margin: 0 auto;
   @media (max-width: 748px) {
-    padding: 15px 5px 50px;
+    padding: 15px 0 0;
   }
 `;
 
@@ -18,6 +18,9 @@ export const Row = Styled.div`
    flex-wrap: wrap;
    flex-flow: row wrap;
    align-content: flex-end;
+   @media (max-width: 748px) {
+     margin-top: -1px;
+   }
 `;
 
 export const ButtonContainer = Styled.div`
@@ -27,7 +30,8 @@ export const ButtonContainer = Styled.div`
     width: calc(33.33% - 15px);
   }
   @media (max-width: 748px) {
-    margin-bottom: 5px;
+    margin-bottom: 0px;
+    margin-top: 1px;
   }
   @media (max-width: 700px) {
     width: calc(50% - 15px);
