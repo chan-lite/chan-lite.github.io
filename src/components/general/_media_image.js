@@ -1,39 +1,62 @@
 import React, { PureComponent } from "react";
-import { findDOMNode } from "react-dom";
 import Styled from "styled-components";
+import { findDOMNode } from "react-dom";
 import Zooming from "zooming";
-import { BASE, CHAN_BASE } from "../../constants/";
+import { IMAGE_BASE } from "../../constants/";
+
+const Image = Styled.img`
+  display: none;
+`;
+
+const FakeImage = Styled.div`
+  background-position: center center;
+  background-size: cover;
+  cursor: pointer;
+`;
 
 const zooming = new Zooming({
   bgColor: "#212121",
-  scaleExtra: 0
+  scaleExtra: 0,
+  onBeforeOpen: function(target) {
+    target.style.display = "block";
+  },
+  onClose: function(target) {
+    target.style.display = "none";
+  }
 });
 
-const IMAGE_BASE = `${BASE}image.php?image=${CHAN_BASE}`;
-
-const Image = Styled.img`
-  margin-bottom: 15px;
-  max-width: 100%;
-`;
+function getImageStateFromProps(props) {
+  return {
+    hasLoaded: false,
+    imageFromLocalStorage: null,
+    imageSource: `${IMAGE_BASE}${props.board}/${props.tim}s.jpg`
+  };
+}
 
 class OfflineImage extends PureComponent {
   element = null;
 
   constructor(props) {
     super(props);
-    this.state = {
-      hasLoaded: false,
-      imageFromLocalStorage: null,
-      imageSource: `${IMAGE_BASE}${this.props.board}/${this.props.tim}s.jpg`
-    };
+    this.state = getImageStateFromProps(props);
   }
 
   componentDidMount() {
     zooming.listen(findDOMNode(this.element));
   }
 
-  handleClick = event => {
+  componentWillReceiveProps(nextProps) {
+    this.setState(() => {
+      return getImageStateFromProps(nextProps);
+    });
+  }
+
+  stopClick = event => {
     event.stopPropagation();
+  };
+
+  handleClick = event => {
+    zooming.open(findDOMNode(this.element));
   };
 
   handleOnHover = event => {
@@ -104,16 +127,24 @@ class OfflineImage extends PureComponent {
       imageSource = LocalStorageImage || this.state.imageSource;
     }
 
+    const FakeImageStyle = {
+      backgroundImage: `url(${imageSource})`,
+      height: `${this.props.imageHeight || 150}px`
+    };
+
     return (
-      <Image
-        crossOrigin="Anonymous"
-        onLoad={this.handleLoad}
-        ref={o => (this.element = o)}
-        style={{ height: `${this.props.tn_h}px` }}
-        onMouseEnter={this.handleOnHover}
-        onClick={this.handleClick}
-        src={imageSource}
-      />
+      <div onClick={this.stopClick}>
+        <div style={{ height: "0", overflow: "hidden" }}>
+          <Image
+            crossOrigin="Anonymous"
+            onLoad={this.handleLoad}
+            ref={o => (this.element = o)}
+            onMouseEnter={this.handleOnHover}
+            src={imageSource}
+          />
+        </div>
+        <FakeImage onClick={this.handleClick} style={FakeImageStyle} />
+      </div>
     );
   }
 }

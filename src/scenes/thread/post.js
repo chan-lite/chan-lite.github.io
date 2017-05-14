@@ -1,30 +1,44 @@
-// @flow
-
 import React, { PureComponent } from "react";
 import { findDOMNode } from "react-dom";
 import { Media, Description } from "../../components/general/";
 import { Container } from "../../components/ui/";
+import { Card } from "../../components/general/";
+import { CardContainer } from "./styles";
 
 export default class extends PureComponent {
   componentDidMount() {
-    if (this.props.highlighted) {
+    this.checkScroll();
+  }
+
+  componentDidUpdate() {
+    this.checkScroll();
+  }
+
+  isHighlighted() {
+    return this.props.match.params.post === this.props.item.no.toString();
+  }
+
+  checkScroll() {
+    if (this.isHighlighted()) {
       const el = findDOMNode(this.element);
       window.scroll(0, el.offsetTop);
     }
   }
 
   render() {
-    const style = !this.props.highlighted
-      ? {}
-      : {
-          backgroundColor: "rgba(255, 255, 255, 0.2)"
-        };
+    const className = this.isHighlighted() ? "highlightedPost" : null;
 
     return (
-      <Container style={style} ref={o => (this.element = o)}>
-        <Media {...this.props} />
-        <Description {...this.props} />
-      </Container>
+      <div className={className} ref={o => (this.element = o)}>
+        <CardContainer className="postRootContainer">
+          <Card
+            match={this.props.match}
+            imageHeight={250}
+            board={this.props.board}
+            item={this.props.item}
+          />
+        </CardContainer>
+      </div>
     );
   }
 }

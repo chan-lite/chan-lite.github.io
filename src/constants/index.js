@@ -6,6 +6,8 @@ export const CHAN_BASE = "http://i.4cdn.org/";
 
 export const BOARDS = `${BASE}landing.php`;
 
+export const IMAGE_BASE = `${BASE}image.php?image=${CHAN_BASE}`;
+
 export function GET_THREADS(board: string, page: number) {
   return `${BASE}board.php?board=${board}&page=${page}`;
 }

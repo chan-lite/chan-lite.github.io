@@ -20,6 +20,10 @@ export const GlobalStyles = injectGlobal`
     max-width: 100%;
     max-height: 90vh;
   }
+  img {
+    width: 100%;
+    max-width: 100%;
+  }
   .quote {
     color: #789922;
   }

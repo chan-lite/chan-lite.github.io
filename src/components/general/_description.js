@@ -1,9 +1,17 @@
 // @flow
 
 import React, { PureComponent } from "react";
+import Styled from "styled-components";
 import { findDOMNode } from "react-dom";
 import { connect } from "react-redux";
 import { push } from "react-router-redux";
+
+const Article = Styled.article`
+  overflow: hidden;
+  padding: 0 15px 0;
+  color: black;
+  max-height: 145px;
+`;
 
 type PropsType = {
   board: string,
@@ -19,15 +27,22 @@ class Description extends PureComponent {
   element: null;
 
   componentDidMount() {
-    // console.log(this.props.match.params);
-    this.getQuotes().forEach(quoteNode => {
-      quoteNode.addEventListener("click", this.handleClick);
-    });
+    this.checkLinks();
+  }
+
+  componentDidUpdate() {
+    this.checkLinks();
   }
 
   componentWillUnmount() {
     this.getQuotes().forEach(quoteNode => {
       quoteNode.removeEventListener("click", this.handleClick);
+    });
+  }
+
+  checkLinks() {
+    this.getQuotes().forEach(quoteNode => {
+      quoteNode.addEventListener("click", this.handleClick);
     });
   }
 
@@ -64,8 +79,7 @@ class Description extends PureComponent {
 
   render() {
     return (
-      <article
-        style={{ overflow: "hidden" }}
+      <Article
         ref={o => (this.element = o)}
         dangerouslySetInnerHTML={{ __html: this.props.com }}
       />

@@ -1,4 +1,4 @@
-import React, { createElement, PureComponent } from "react";
+import { createElement, PureComponent } from "react";
 import {
   RequestBoardOnMountAndUpdate
 } from "../../decorators/requestBoardOnMountAndUpdate";

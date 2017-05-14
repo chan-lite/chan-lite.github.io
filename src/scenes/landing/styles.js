@@ -1,11 +1,8 @@
 import Styled, { injectGlobal } from "styled-components";
 
-export const Title = Styled.div`
-  margin: 0 0 10px;
-`;
 export const Container = Styled.div`
-  padding: 50px 15px 250px;
-  max-width: 800px;
+  padding: 15px 15px 250px;
+  max-width: 600px;
   margin: 0 auto;
 `;
 

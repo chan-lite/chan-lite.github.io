@@ -1,15 +1,13 @@
-import Styled from "styled-components";
+import Styled, { injectGlobal } from "styled-components";
 
-export const ContainerWithHover = Styled.div`
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 2px;
-
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.15);
-  }
+export const Page = Styled.div`
+  padding: 15px 15px 250px;
 `;
 
-export const ContainerInner = Styled.div`
-  padding: 15px;
-  max-height: 500px;
+export const Container = Styled.div`
+  margin: 15px -7.5px 0;
+`;
+
+export const Thread = Styled.div`
+  margin: 0 7.5px 15px;
 `;

@@ -1,8 +1,8 @@
 // @flow
 
 import React, { PureComponent } from "react";
-import { Welcome } from "../../components/general/";
-import { Page } from "../../components/ui/";
+import { Breadcrumb } from "../../components/ui/";
+import { Page } from "./styles";
 import Post from "./post";
 
 export default class extends PureComponent {
@@ -54,9 +54,24 @@ export default class extends PureComponent {
 
     return (
       <Page>
-        <Welcome board={board} thread={thread} />
+        <Breadcrumb
+          items={[
+            {
+              text: "/reactchan/",
+              href: "/"
+            },
+            {
+              text: `/${board}/`,
+              href: `/${board}`
+            },
+            {
+              text: `/${thread}/`,
+              href: `/${board}/${thread}`
+            }
+          ]}
+        />
         {aPosts.map(function(post, index) {
-          return <Post key={index} match={match} board={board} {...post} />;
+          return <Post key={index} match={match} board={board} item={post} />;
         })}
       </Page>
     );
