@@ -1,8 +1,8 @@
 // @flow
 
-export const BASE = "http://evanjones.xyz/proxy-chan/";
+export const BASE = "https://evanjones.xyz/proxy-chan/";
 
-export const CHAN_BASE = "http://i.4cdn.org/";
+export const CHAN_BASE = "https://i.4cdn.org/";
 
 export const BOARDS = `${BASE}landing.php`;
 
