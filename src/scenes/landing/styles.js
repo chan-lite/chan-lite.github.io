@@ -4,6 +4,9 @@ export const Container = Styled.div`
   padding: 15px 15px 250px;
   max-width: 600px;
   margin: 0 auto;
+  @media (max-width: 748px) {
+    padding: 15px 5px 50px;
+  }
 `;
 
 export const Row = Styled.div`
@@ -22,6 +25,9 @@ export const ButtonContainer = Styled.div`
   width: calc(25% - 15px);
   @media (max-width: 900px) {
     width: calc(33.33% - 15px);
+  }
+  @media (max-width: 748px) {
+    margin-bottom: 5px;
   }
   @media (max-width: 700px) {
     width: calc(50% - 15px);
