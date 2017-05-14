@@ -1,6 +1,5 @@
 {
   "name": "react-chan",
-  "homepage": "https://mini-eggs.github.io/react-chan",
   "version": "0.1.0",
   "dependencies": {
     "animated": "^0.2.0",
@@ -21,7 +20,6 @@
   },
   "devDependencies": {
     "flow-bin": "^0.45.0",
-    "gh-pages": "^1.0.0",
     "react-scripts": "0.9.5",
     "sw-precache": "^5.1.1"
   },
@@ -30,8 +28,6 @@
     "build": "react-scripts build && react-snapshot && sw-precache --config=serviceworker.js",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "flow": "node_modules/.bin/flow",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "flow": "node_modules/.bin/flow"
   }
 }
