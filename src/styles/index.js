@@ -17,8 +17,7 @@ export const GlobalStyles = injectGlobal`
     color: #81a2be;
   }
   video {
-    max-width: 100%;
-    max-height: 90vh;
+    width: 100%;
   }
   img {
     width: 100%;
