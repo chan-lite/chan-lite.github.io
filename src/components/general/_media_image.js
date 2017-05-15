@@ -29,7 +29,7 @@ function getImageStateFromProps(props) {
   return {
     hasLoaded: false,
     imageFromLocalStorage: null,
-    imageSource: `${IMAGE_BASE}${props.board}/${props.tim}s.jpg`
+    imageSource: `${IMAGE_BASE}${props.board}/${props.Tim}s.jpg`
   };
 }
 
@@ -57,10 +57,15 @@ class OfflineImage extends PureComponent {
 
   handleClick = event => {
     zooming.open(findDOMNode(this.element));
+    this.loadHighRes();
   };
 
   handleOnHover = event => {
-    const src = this.state.imageSource.replace(`s.jpg`, `${this.props.ext}`);
+    this.loadHighRes();
+  };
+
+  loadHighRes() {
+    const src = this.state.imageSource.replace(`s.jpg`, `${this.props.Ext}`);
     if (
       this.state.imageSource === src ||
       this.state.hasLoaded ||
@@ -74,7 +79,7 @@ class OfflineImage extends PureComponent {
         imageSource: src
       };
     });
-  };
+  }
 
   handleLoad = event => {
     const check = localStorage.getItem(

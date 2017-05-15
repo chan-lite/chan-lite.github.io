@@ -11,25 +11,10 @@ const initial = {
 export default function(state: StateType = initial, action: ActionType) {
   switch (action.type) {
     case "SET_POSTS": {
-      const somePosts = action.payload.posts
-        .map(aPost => {
-          aPost["highlighted"] = false;
-          return aPost;
-        })
-        .map(({ No, Now, Name, Com, Filename, Ext, Tn_w, Tn_h, Tim, Time }) => {
-          return {
-            no: No,
-            now: Now,
-            name: Name,
-            com: Com,
-            filename: Filename,
-            ext: Ext,
-            tn_w: Tn_w,
-            tn_h: Tn_h,
-            tim: Tim,
-            time: Time
-          };
-        });
+      const somePosts = action.payload.posts.map(aPost => {
+        aPost["highlighted"] = false;
+        return aPost;
+      });
 
       const data = {};
       data[action.payload.name] = somePosts;
@@ -39,7 +24,7 @@ export default function(state: StateType = initial, action: ActionType) {
     case "HIGHLIGHT_POST": {
       const { board, thread, post } = action.payload;
       const posts = state.posts[`/${board}/${thread}`].map(aPost => {
-        aPost["highlighted"] = aPost.no.toString() === post ? true : false;
+        aPost["highlighted"] = aPost.No.toString() === post ? true : false;
         return aPost;
       });
       const data = state.posts;

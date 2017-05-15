@@ -40,8 +40,8 @@ class Video extends PureComponent {
         controls={this.state.controls}
       >
         <source
-          src={`${CHAN_BASE}${this.props.board}/${this.props.tim}${this.props.ext}`}
-          type={`video/${this.props.ext.replace(".", "")}`}
+          src={`${CHAN_BASE}${this.props.board}/${this.props.Tim}${this.props.Ext}`}
+          type={`video/${this.props.Ext.replace(".", "")}`}
         />
       </video>
     );
@@ -50,14 +50,14 @@ class Video extends PureComponent {
 
 type PropsType = {
   board: string,
-  ext?: string,
-  tn_h?: number,
-  tn_w?: number,
-  tim?: number
+  Ext?: string,
+  Tn_h?: number,
+  Tn_w?: number,
+  Tim?: number
 };
 
 export default function(props: PropsType) {
-  switch (props.ext) {
+  switch (props.Ext) {
     case ".png":
     case ".gif":
     case ".jpg": {
@@ -70,7 +70,7 @@ export default function(props: PropsType) {
       return null;
     }
     default: {
-      console.log(props.ext);
+      console.log(props.Ext);
       return null;
     }
   }

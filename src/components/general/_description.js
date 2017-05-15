@@ -14,11 +14,11 @@ const Article = Styled.article`
 `;
 
 type PropsType = {
-  board: string,
-  ext?: string,
-  tn_h?: number,
-  tn_w?: number,
-  tim?: number,
+  Board: string,
+  Ext?: string,
+  Tn_h?: number,
+  Tn_w?: number,
+  Tim?: number,
   match: Object
 };
 
@@ -81,7 +81,7 @@ class Description extends PureComponent {
     return (
       <Article
         ref={o => (this.element = o)}
-        dangerouslySetInnerHTML={{ __html: this.props.com }}
+        dangerouslySetInnerHTML={{ __html: this.props.Com }}
       />
     );
   }

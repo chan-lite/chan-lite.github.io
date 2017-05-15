@@ -23,28 +23,28 @@ export default function(props) {
 
       <Media imageHeight={props.imageHeight} board={board} {...item} />
 
-      {item.sub && !showNumber
-        ? <DocumentCardTitle title={decode(item.sub)} shouldTruncate={false} />
+      {item.Sub && !showNumber
+        ? <DocumentCardTitle title={decode(item.Sub)} shouldTruncate={false} />
         : null}
 
       {showNumber
-        ? <DocumentCardTitle title={item.no} shouldTruncate={false} />
+        ? <DocumentCardTitle title={item.No} shouldTruncate={false} />
         : null}
 
       <DocumentCardActivity
-        activity={item.now}
+        activity={item.Now}
         people={[
           {
-            name: item.name
+            name: item.Name
           }
         ]}
       />
 
-      {item.com
+      {item.Com
         ? <Description board={board} {...{ ...item, ...props }} />
         : null}
 
-      {item.com ? <div style={{ height: "15px" }} /> : null}
+      {item.Com ? <div style={{ height: "15px" }} /> : null}
 
     </DocumentCard>
   );

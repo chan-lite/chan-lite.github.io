@@ -49,10 +49,10 @@ export const GlobalStyles = injectGlobal`
   }
   .highlightedPost {
     .ms-DocumentCard {
-      border-color: #0078d7;
-      -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 120, 215, 1);
-      -moz-box-shadow: 0px 0px 15px 0px rgba(0, 120, 215, 1);
-      box-shadow: 0px 0px 15px 0px rgba(0, 120, 215, 1);
+      // border-color: #0078d7;
+      // -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 120, 215, 1);
+      // -moz-box-shadow: 0px 0px 15px 0px rgba(0, 120, 215, 1);
+      // box-shadow: 0px 0px 15px 0px rgba(0, 120, 215, 1);
     }
   }
   .buttonRootContainer {

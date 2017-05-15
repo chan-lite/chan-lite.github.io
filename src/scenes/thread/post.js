@@ -13,7 +13,7 @@ export default class extends PureComponent {
   }
 
   isHighlighted() {
-    return this.props.match.params.post === this.props.item.no.toString();
+    return this.props.match.params.post === this.props.item.No.toString();
   }
 
   checkScroll() {

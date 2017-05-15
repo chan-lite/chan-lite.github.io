@@ -8,7 +8,7 @@ import { Breadcrumb } from "../../components/ui/";
 function SingleThread(props, thread, index) {
   return (
     <Thread key={index}>
-      <Link href={`/${props.match.params.board}/${thread.no}`}>
+      <Link href={`/${props.match.params.board}/${thread.No}`}>
         <Card board={props.match.params.board} item={thread} />
       </Link>
     </Thread>
