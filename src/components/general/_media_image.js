@@ -11,7 +11,16 @@ const Image = Styled.img`
 const FakeImage = Styled.div`
   background-position: center center;
   background-size: cover;
+`;
+
+const FakeImageClickable = Styled.img`
+  opacity: 0;
   cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 `;
 
 const zooming = new Zooming({
@@ -160,7 +169,14 @@ class OfflineImage extends PureComponent {
             src={imageSource}
           />
         </div>
-        <FakeImage onClick={this.handleClick} style={FakeImageStyle} />
+        <div style={{ position: "relative" }}>
+          <FakeImage onClick={this.handleClick} style={FakeImageStyle} />
+          <FakeImageClickable
+            style={{ height: `${this.props.imageHeight || 150}px` }}
+            onClick={this.handleClick}
+            src={imageSource}
+          />
+        </div>
       </div>
     );
   }
