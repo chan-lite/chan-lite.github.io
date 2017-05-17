@@ -19,9 +19,21 @@ const zooming = new Zooming({
   scaleExtra: 0,
   onBeforeOpen: function(target) {
     target.style.display = "block";
+    const components = document.getElementsByClassName("transition-component");
+    for (let i = 0; i < components.length; ++i) {
+      const single = components[i];
+      single.className = single.className + " disable-transitions ";
+    }
   },
   onClose: function(target) {
     target.style.display = "none";
+  },
+  onBeforeClose: function() {
+    const components = document.getElementsByClassName("transition-component");
+    for (let i = 0; i < components.length; ++i) {
+      const single = components[i];
+      single.className = single.className.replace(" disable-transitions ", "");
+    }
   }
 });
 

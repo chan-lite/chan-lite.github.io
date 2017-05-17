@@ -55,47 +55,7 @@ export const GlobalStyles = injectGlobal`
       // box-shadow: 0px 0px 15px 0px rgba(0, 120, 215, 1);
     }
   }
-  .buttonRootContainer {
-    .ms-SearchBox {
-      margin-bottom: 15px;
-      .ms-SearchBox-field {
-        color: white;
-      }
-    }
-    .ms-Button--compound {
-      width: 100%;
-      max-width: 99999px;
-      overflow: hidden;
-      .ms-Button-label {
-        margin-bottom: 0;
-        padding-bottom: 5px;
-      }
-      .ms-Button-label,
-      .ms-Button-description {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-    }
-  }
-  .ms-Breadcrumb {
-    margin: 0 0 15px !important;
-    .ms-Breadcrumb-chevron {
-      margin: 0 15px;
-      color: white;
-      margin-top: 10px;
-      @media (max-width: 640px) {
-        margin-top: 8px;
-        margin-left: 0;
-        margin-right: 0;
-      }
-    }
-    .ms-Link {
-      padding: 0 15px 5px !important;
-      color: white !important;
-      &:hover {
-        color: black !important;
-      }
-    }
+  .disable-transitions {
+    transform: none !important;
   }
 `;

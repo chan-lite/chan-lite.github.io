@@ -10,7 +10,6 @@ const Article = Styled.article`
   overflow: hidden;
   padding: 0 15px 0;
   color: black;
-  max-height: 145px;
 `;
 
 type PropsType = {

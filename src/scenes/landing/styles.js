@@ -1,11 +1,54 @@
-import Styled from "styled-components";
+import Styled, { injectGlobal } from "styled-components";
+
+injectGlobal`
+  .buttonRootContainer {
+    .ms-SearchBox {
+      margin-bottom: 15px;
+      border-color: #f4f4f4;
+      border-width: 2px;
+      @media (max-width: 748px) {
+        border-width: 0;
+        margin: 0;
+        height: 50px !important;
+      }
+      .ms-Icon {
+        font-weight: 800;
+        color: #f4f4f4;
+      }
+      .ms-SearchBox-field {
+        font-weight: 800;
+        color: white;
+      }
+    }
+    .ms-Button--compound {
+      width: 100%;
+      max-width: 99999px;
+      overflow: hidden;
+      margin-top: 0px;
+      margin-bottom: 0px;
+
+      .ms-Button-label {
+        margin-bottom: 0;
+        padding-bottom: 5px;
+      }
+
+      .ms-Button-label,
+      .ms-Button-description {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+`;
 
 export const Container = Styled.div`
   padding: 15px 15px 250px;
   max-width: 600px;
   margin: 0 auto;
   @media (max-width: 748px) {
-    padding: 15px 0 0;
+    padding: 0;
+    margin-top: -2px;
   }
 `;
 
@@ -19,7 +62,7 @@ export const Row = Styled.div`
    flex-flow: row wrap;
    align-content: flex-end;
    @media (max-width: 748px) {
-     margin: -1px 0 0;
+     margin: -2px 0 0;
    }
 `;
 
@@ -30,7 +73,15 @@ export const ButtonContainer = Styled.div`
     width: calc(33.33% - 15px);
   }
   @media (max-width: 748px) {
-    margin: 1px 0 0;
-    width: 100%;
+    width: calc(50% - 1px);
+    margin: 2px 0 0 0;
+
+    &:nth-of-type(2n+1) {
+      margin-right: 1px;
+    }
+    &:nth-of-type(2n) {
+      margin-left: 1px;
+    }
+    
   }
 `;

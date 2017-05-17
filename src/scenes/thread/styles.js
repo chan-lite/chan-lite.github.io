@@ -5,14 +5,13 @@ export const Page = Styled.div`
   max-width: 600px;
   margin: 0 auto;
   @media (max-width: 748px) {
-    padding: 15px 0 0;
+    padding: 0;
   }
 `;
 
 export const CardContainer = Styled.div`
   margin-bottom: 15px;
   @media (max-width: 748px) {
-    margin-bottom: 0;
-    margin-top: 1px;
+    margin: 2px 0 0 0;
   }
 `;
