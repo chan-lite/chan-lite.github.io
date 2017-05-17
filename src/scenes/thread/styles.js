@@ -6,6 +6,7 @@ export const Page = Styled.div`
   margin: 0 auto;
   @media (max-width: 748px) {
     padding: 0;
+    margin-top: -2px;
   }
 `;
 
