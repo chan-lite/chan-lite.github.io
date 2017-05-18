@@ -70,7 +70,7 @@ export default function(props: PropsType) {
       return null;
     }
     default: {
-      console.log(props.Ext);
+      // console.log(props.Ext);
       return null;
     }
   }

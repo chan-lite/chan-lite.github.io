@@ -1,4 +1,4 @@
-import { createElement, PureComponent } from "react";
+import React, { PureComponent } from "react";
 import {
   RequestBoardOnMountAndUpdate
 } from "../../decorators/requestBoardOnMountAndUpdate";
@@ -6,11 +6,18 @@ import { ReceiveThreadsAsProps } from "../../decorators/receiveThreadsAsProps";
 import { BindScrollBehavior } from "../../decorators/bindScrollBehavior";
 import Component from "./components";
 
-function composeChildren(aFunctionHandler) {
-  return RequestBoardOnMountAndUpdate(
-    ReceiveThreadsAsProps(BindScrollBehavior(Component, aFunctionHandler))
-  );
-}
+// we override this on mount
+// to prevent the tree of components
+// re-rendering on page back
+let scrollHandler = () => {};
+
+const ChildComponent = RequestBoardOnMountAndUpdate(
+  ReceiveThreadsAsProps(
+    BindScrollBehavior(Component, () => {
+      scrollHandler();
+    })
+  )
+);
 
 function incrementPage(currentPage) {
   return function() {
@@ -19,15 +26,17 @@ function incrementPage(currentPage) {
 }
 
 export default class extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = { page: 1 };
-    this.childComponent = composeChildren(this.handleNearBottom);
+  state = { page: 1 };
+
+  componentDidMount() {
+    scrollHandler = this.handleNearBottom;
   }
+
   handleNearBottom = () => {
     this.setState(incrementPage(this.state.page));
   };
+
   render() {
-    return createElement(this.childComponent, { ...this.props, ...this.state });
+    return <ChildComponent {...this.props} {...this.state} />;
   }
 }
