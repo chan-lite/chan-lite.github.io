@@ -19,10 +19,8 @@ const ChildComponent = RequestBoardOnMountAndUpdate(
   )
 );
 
-function incrementPage(currentPage) {
-  return function() {
-    return { page: currentPage + 1 };
-  };
+function incrementPage({ page }) {
+  return { page: page + 1 };
 }
 
 export default class extends PureComponent {
@@ -33,7 +31,7 @@ export default class extends PureComponent {
   }
 
   handleNearBottom = () => {
-    this.setState(incrementPage(this.state.page));
+    this.setState(incrementPage);
   };
 
   render() {

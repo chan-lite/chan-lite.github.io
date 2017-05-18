@@ -23,7 +23,10 @@ export default function(state: StateType = initial, action: ActionType) {
     }
     case "HIGHLIGHT_POST": {
       const { board, thread, post } = action.payload;
-      const posts = state.posts[`/${board}/${thread}`].map(aPost => {
+      const threads = typeof state.posts[`/${board}/${thread}`] !== "undefined"
+        ? state.posts[`/${board}/${thread}`]
+        : [];
+      const posts = threads.map(aPost => {
         aPost["highlighted"] = aPost.No.toString() === post ? true : false;
         return aPost;
       });
