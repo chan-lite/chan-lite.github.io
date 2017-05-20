@@ -1,2 +1,2 @@
-# React Chan
-An offline-first, progressive web app made with React.
+# Chan Lite
+An offline-first, mobile first, progressive web app.
