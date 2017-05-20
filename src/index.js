@@ -11,6 +11,7 @@ import offlineConfig from "redux-offline/lib/defaults";
 import { routerReducer, routerMiddleware } from "react-router-redux";
 import { Route, Switch } from "react-router";
 import createHistory from "history/createHashHistory";
+import { Options } from "./components/ui";
 import LandingScene from "./scenes/landing/";
 import BoardScene from "./scenes/board/";
 import ThreadScene from "./scenes/thread/";
@@ -31,12 +32,15 @@ render(
     return (
       <Provider store={store}>
         <HashRouter>
-          <Switch>
-            <Route path="/:board/:thread/:post" component={ThreadScene} />
-            <Route path="/:board/:thread" component={ThreadScene} />
-            <Route path="/:board" component={BoardScene} />
-            <Route path="/" component={LandingScene} />
-          </Switch>
+          <div>
+            <Switch>
+              <Route path="/:board/:thread/:post" component={ThreadScene} />
+              <Route path="/:board/:thread" component={ThreadScene} />
+              <Route path="/:board" component={BoardScene} />
+              <Route path="/" component={LandingScene} />
+            </Switch>
+            <Options />
+          </div>
         </HashRouter>
       </Provider>
     );

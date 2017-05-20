@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, AnimateOnChange } from "../../components/general/";
-import { Link } from "../../components/ui/";
+import { Link, Loader } from "../../components/ui/";
 import { Container, Thread, Page } from "./styles";
 import { ForceUpdateOnResize } from "../../decorators/forceUpdatedOnResize";
 import { Breadcrumb } from "../../components/ui/";
@@ -44,12 +44,14 @@ function Component(props) {
     columns = 2;
   }
 
+  const threads = props.threads[`/${props.match.params.board}`] || [];
+
   return (
     <Page>
       <Breadcrumb
         items={[
           {
-            text: "/reactchan/",
+            text: "/chanlite/",
             href: "/"
           },
           {
@@ -58,6 +60,9 @@ function Component(props) {
           }
         ]}
       />
+
+      {threads.length > 0 ? null : <Loader />}
+
       <Container>
         <table
           cellPadding="0"
@@ -67,10 +72,7 @@ function Component(props) {
         >
           <tbody>
             <tr>
-              {reOrder(
-                props.threads[`/${props.match.params.board}`] || [],
-                columns
-              ).map((arr, index) => {
+              {reOrder(threads, columns).map((arr, index) => {
                 return (
                   <td key={index} style={{ verticalAlign: "top" }}>
                     {arr.map((thread, xindex) => {

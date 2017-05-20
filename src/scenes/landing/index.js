@@ -9,7 +9,7 @@ export default function() {
       <Breadcrumb
         items={[
           {
-            text: "/reactchan/",
+            text: "/chanlite/",
             href: "/"
           }
         ]}

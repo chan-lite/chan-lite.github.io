@@ -1,7 +1,7 @@
 // @flow
 
 import React, { PureComponent } from "react";
-import { Breadcrumb } from "../../components/ui/";
+import { Breadcrumb, Loader } from "../../components/ui/";
 import { Page } from "./styles";
 import Post from "./post";
 
@@ -57,7 +57,7 @@ export default class extends PureComponent {
         <Breadcrumb
           items={[
             {
-              text: "/reactchan/",
+              text: "/chanlite/",
               href: "/"
             },
             {
@@ -70,6 +70,9 @@ export default class extends PureComponent {
             }
           ]}
         />
+
+        {aPosts.length > 0 ? null : <Loader />}
+
         {aPosts.map(function(post, index) {
           return <Post key={index} match={match} board={board} item={post} />;
         })}
