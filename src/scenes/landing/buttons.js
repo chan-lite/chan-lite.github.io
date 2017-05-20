@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import { Link } from "../../components/ui/";
+import { Link, Loader } from "../../components/ui/";
 import { AnimateOnChange } from "../../components/general/";
 import { Row, ButtonContainer } from "./styles";
 import { SearchBox } from "office-ui-fabric-react/lib/SearchBox";
@@ -35,14 +35,19 @@ export default class extends PureComponent {
   };
 
   render() {
+    const boards = filterBoardsBardOnUserInput(
+      this.props.boards,
+      this.state.userInput
+    );
+
     return (
       <div className="buttonRootContainer">
         <SearchBox onChange={this.handleChange} />
+
+        {boards.length > 0 || this.state.userInput !== "" ? null : <Loader />}
+
         <Row>
-          {filterBoardsBardOnUserInput(
-            this.props.boards,
-            this.state.userInput
-          ).map(({ board, title }, index) => {
+          {boards.map(({ board, title }, index) => {
             return (
               <ButtonContainer key={index}>
                 <Link href={`/${board}`}>

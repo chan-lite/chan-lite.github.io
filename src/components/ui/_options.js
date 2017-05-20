@@ -7,14 +7,13 @@ import {
 } from "office-ui-fabric-react/lib/Dialog";
 import {
   PrimaryButton,
-  DefaultButton,
-  IButtonProps
+  DefaultButton
 } from "office-ui-fabric-react/lib/Button";
 import { Panel, PanelType } from "office-ui-fabric-react/lib/Panel";
 
 const ButtonWrap = Styled.div`
   position: fixed;
-  bottom: 50px;
+  bottom: 35px;
   right: 50px;
   @media (max-width: 748px) {
     bottom: 25px;
@@ -22,12 +21,7 @@ const ButtonWrap = Styled.div`
   }
 `;
 
-const DialogButton = Styled.div`
-  display: inline-block;
-  margin-right: 15px;
-`;
-
-injectGlobal`
+export const optionsStyles = injectGlobal`
   .actionBtn {
     button {
       min-width: 32px;

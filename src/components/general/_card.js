@@ -1,5 +1,5 @@
 import React from "react";
-import Styled, { injectGlobal } from "styled-components";
+import { injectGlobal } from "styled-components";
 import { Media, Description } from "./index.js";
 
 import {
@@ -16,7 +16,7 @@ function decode(someString) {
   return decoded;
 }
 
-injectGlobal`
+export const cardStyles = injectGlobal`
   .ms-DocumentCard {
     border-width: 0 !important;
     overflow: hidden;

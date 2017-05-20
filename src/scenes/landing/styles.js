@@ -1,6 +1,6 @@
 import Styled, { injectGlobal } from "styled-components";
 
-injectGlobal`
+export const landingStyles = injectGlobal`
   .buttonRootContainer {
     .ms-SearchBox {
       margin-bottom: 15px;

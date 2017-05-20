@@ -1,6 +1,6 @@
 import Styled, { injectGlobal } from "styled-components";
 
-injectGlobal`
+export const boardStyles = injectGlobal`
   .threadRootContainer {
     article {
       max-height: 145px;

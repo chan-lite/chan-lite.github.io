@@ -1,6 +1,7 @@
 {
-  "short_name": "react-chan",
-  "name": " ",
+  "short_name": "Chan Lite",
+  "name": "Chan Lite",
+  "description": "An offline first, mobile first, progressive web app.",
   "icons": [
     {
       "src": "favicon.png",
@@ -8,7 +9,7 @@
       "type": "image/png"
     }
   ],
-  "background_color": "#1d1f21",
-  "start_url": "./",
+  "background_color": "#212121",
+  "start_url": ".",
   "display": "standalone"
 }

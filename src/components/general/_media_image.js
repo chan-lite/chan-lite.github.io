@@ -31,7 +31,7 @@ const zooming = new Zooming({
     const components = document.getElementsByClassName("transition-component");
     for (let i = 0; i < components.length; ++i) {
       const single = components[i];
-      single.className = single.className + " disable-transitions ";
+      single.className += " disable-transitions ";
     }
   },
   onClose: function(target) {

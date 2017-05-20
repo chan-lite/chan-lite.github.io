@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { push } from "react-router-redux";
 import { Breadcrumb } from "office-ui-fabric-react/lib/Breadcrumb";
 
-injectGlobal`
+export const breadcrumbStyles = injectGlobal`
   .ms-Breadcrumb {
     margin: 0 0 15px !important;
 
