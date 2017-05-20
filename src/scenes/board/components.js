@@ -1,5 +1,6 @@
 import React from "react";
-import { Card, AnimateOnChange } from "../../components/general/";
+// import { Card, AnimateOnChange } from "../../components/general/";
+import { Card } from "../../components/general/";
 import { Link, Loader } from "../../components/ui/";
 import { Container, Thread, Page } from "./styles";
 import { ForceUpdateOnResize } from "../../decorators/forceUpdatedOnResize";
@@ -9,9 +10,9 @@ function SingleThread(props, thread, index) {
   return (
     <Thread key={index}>
       <Link href={`/${props.match.params.board}/${thread.No}`}>
-        <AnimateOnChange propToTriggerChange={thread.No}>
-          <Card board={props.match.params.board} item={thread} />
-        </AnimateOnChange>
+        {/*<AnimateOnChange propToTriggerChange={thread.No}>*/}
+        <Card board={props.match.params.board} item={thread} />
+        {/*</AnimateOnChange>*/}
       </Link>
     </Thread>
   );

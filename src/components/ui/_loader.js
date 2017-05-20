@@ -9,7 +9,10 @@ const Wrap = Styled.div`
 export default function() {
   return (
     <Wrap>
-      <Spinner size={SpinnerSize.large} />
+      <Spinner
+        size={SpinnerSize.large}
+        label={navigator.onLine ? null : "You appear to be offline"}
+      />
     </Wrap>
   );
 }

@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import { Link, Loader } from "../../components/ui/";
-import { AnimateOnChange } from "../../components/general/";
+// import { AnimateOnChange } from "../../components/general/";
 import { Row, ButtonContainer } from "./styles";
 import { SearchBox } from "office-ui-fabric-react/lib/SearchBox";
 import { CompoundButton } from "office-ui-fabric-react/lib/Button";
@@ -51,11 +51,11 @@ export default class extends PureComponent {
             return (
               <ButtonContainer key={index}>
                 <Link href={`/${board}`}>
-                  <AnimateOnChange propToTriggerChange={title}>
-                    <CompoundButton description={title}>
-                      {`/${board}/`}
-                    </CompoundButton>
-                  </AnimateOnChange>
+                  {/*<AnimateOnChange propToTriggerChange={title}>*/}
+                  <CompoundButton description={title}>
+                    {`/${board}/`}
+                  </CompoundButton>
+                  {/*</AnimateOnChange>*/}
                 </Link>
               </ButtonContainer>
             );

@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 import { findDOMNode } from "react-dom";
-import { Card, AnimateOnChange } from "../../components/general/";
+// import { Card, AnimateOnChange } from "../../components/general/";
+import { Card } from "../../components/general/";
 import { CardContainer } from "./styles";
 
 export default class extends PureComponent {
@@ -28,17 +29,17 @@ export default class extends PureComponent {
 
     return (
       <div className={className} ref={o => (this.element = o)}>
-        <AnimateOnChange propToTriggerChange={this.props.item.No}>
-          <CardContainer className="postRootContainer">
-            <Card
-              showNumber={true}
-              match={this.props.match}
-              imageHeight={250}
-              board={this.props.board}
-              item={this.props.item}
-            />
-          </CardContainer>
-        </AnimateOnChange>
+        {/*<AnimateOnChange propToTriggerChange={this.props.item.No}>*/}
+        <CardContainer className="postRootContainer">
+          <Card
+            showNumber={true}
+            match={this.props.match}
+            imageHeight={250}
+            board={this.props.board}
+            item={this.props.item}
+          />
+        </CardContainer>
+        {/*</AnimateOnChange>*/}
       </div>
     );
   }

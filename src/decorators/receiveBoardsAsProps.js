@@ -1,11 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 
-function mapStateToProps(state) {
+function mapStateToProps({ Landing }) {
   return {
-    boards: state.Landing.boards
+    boards: Landing.boards
   };
 }
+
+// navigator.onLine
 
 export function ReceiveBoardsAsProps(Decorated) {
   return connect(mapStateToProps)(props => <Decorated {...props} />);
