@@ -1,5 +1,5 @@
 {
-  "name": "react-chan",
+  "name": "chan-lite",
   "version": "0.1.0",
   "dependencies": {
     "animated": "^0.2.0",

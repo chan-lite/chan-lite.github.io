@@ -104,7 +104,7 @@ class OfflineImage extends PureComponent {
 
   handleLoad = event => {
     const check = localStorage.getItem(
-      `react-chan:local-storage:image:${this.state.imageSource}`
+      `chan-lite:local-storage:image:${this.state.imageSource}`
     );
     if (check !== null || this.state.hasLoaded) return;
 
@@ -121,7 +121,7 @@ class OfflineImage extends PureComponent {
     // Save image into localStorage
     try {
       localStorage.setItem(
-        `react-chan:local-storage:image:${this.state.imageSource}`,
+        `chan-lite:local-storage:image:${this.state.imageSource}`,
         imgAsDataURL
       );
     } catch (e) {
@@ -133,7 +133,7 @@ class OfflineImage extends PureComponent {
     // remove all images from cache
     const arr = [];
     for (let i = 0; i < localStorage.length; i++) {
-      if (localStorage.key(i).indexOf("react-chan:local-storage:image:") > -1) {
+      if (localStorage.key(i).indexOf("chan-lite:local-storage:image:") > -1) {
         arr.push(localStorage.key(i));
       }
     }
@@ -148,7 +148,7 @@ class OfflineImage extends PureComponent {
       imageSource = this.state.imageSource;
     } else {
       const LocalStorageImage = localStorage.getItem(
-        `react-chan:local-storage:image:${this.state.imageSource}`
+        `chan-lite:local-storage:image:${this.state.imageSource}`
       );
       imageSource = LocalStorageImage || this.state.imageSource;
     }

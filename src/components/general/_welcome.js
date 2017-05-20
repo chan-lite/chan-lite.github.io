@@ -26,7 +26,7 @@ function WeclomeComponent({ navigate, board, thread }) {
   return (
     <div>
       <Welcome onClick={navigate("/")}>
-        React Chan {" "}
+        Chan Lite {" "}
       </Welcome>
 
       {board
