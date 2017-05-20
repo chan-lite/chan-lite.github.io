@@ -20,7 +20,7 @@ export function BindScrollBehavior(Decorated, nearBottom) {
     getObservable() {
       return Rx.Observable
         .fromEvent(window, this.customEventName)
-        .throttleTime(2000);
+        .throttleTime(250);
     }
 
     handleScroll = () => {
