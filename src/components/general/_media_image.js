@@ -10,7 +10,10 @@ const zooming = new Zooming({
   scaleExtra: 0,
   onBeforeOpen: function(target) {
     // fade image in
-    target.style.opacity = "1";
+    // const elements = document.querySelectorAll("body > div");
+    // elements[elements.length - 1].style.display = "block";
+    // target.style.display = "block";
+    // target.style.opacity = "1";
     // fix blocking components
     // const components = document.getElementsByClassName("transition-component");
     // for (let i = 0; i < components.length; ++i) {
@@ -20,7 +23,10 @@ const zooming = new Zooming({
   },
   onBeforeClose: function(target) {
     // fade image out
-    target.style.opacity = "0";
+    // const elements = document.querySelectorAll("body > div");
+    // elements[elements.length - 1].style.display = "none";
+    // target.style.display = "none";
+    // target.style.opacity = "0";
     // fix blocking components
     // const components = document.getElementsByClassName("transition-component");
     // for (let i = 0; i < components.length; ++i) {
@@ -236,14 +242,10 @@ class OfflineImage extends PureComponent {
 
     const ImageZoomable = Styled.img`
       transition-duration: 150ms;
-      opacity: 0;
       background-image: url('${lowResSource}');
       background-position: center center;
       background-size: contain;
       background-repeat: no-repeat;
-      height: 100vh !important;
-      width: 100vw !important;
-      object-fit: contain;
     `;
 
     const OfflineImageSource = Styled.img`

@@ -1,54 +1,112 @@
-import React from "react";
+import React, { PureComponent } from "react";
 // import { Card, AnimateOnChange } from "../../components/general/";
-import { Card } from "../../components/general/";
+import { Card, Description } from "../../components/general/";
 import { Link, Loader } from "../../components/ui/";
 import { Container, Thread, Page } from "./styles";
 import { ForceUpdateOnResize } from "../../decorators/forceUpdatedOnResize";
 import { Breadcrumb } from "../../components/ui/";
 
-function SingleThread(props, thread, index) {
-  return (
-    <Thread key={index}>
-      <Link href={`/${props.match.params.board}/${thread.No}`}>
-        {/*<AnimateOnChange propToTriggerChange={thread.No}>*/}
-        <Card board={props.match.params.board} item={thread} />
-        {/*</AnimateOnChange>*/}
-      </Link>
-    </Thread>
-  );
+import {
+  FocusZone,
+  FocusZoneDirection
+} from "office-ui-fabric-react/lib/FocusZone";
+import { TextField } from "office-ui-fabric-react/lib/TextField";
+import { Image, ImageFit } from "office-ui-fabric-react/lib/Image";
+import { List } from "office-ui-fabric-react/lib/List";
+import { IMAGE_BASE } from "../../constants/";
+import {
+  DocumentCard,
+  DocumentCardActivity,
+  DocumentCardTitle
+} from "office-ui-fabric-react/lib/DocumentCard";
+
+function getHighRes({ board, Tim, Ext }) {
+  return `${IMAGE_BASE}${board}/${Tim}${Ext}`;
 }
 
-function reOrder(arr, columns) {
-  const newArr = [];
-  for (var e = 0; e < columns; e++) {
-    newArr.push([]);
+function getLowRes({ board, Tim, Ext }) {
+  return `${IMAGE_BASE}${board}/${Tim}s.jpg`;
+}
+
+function toggleImage(event) {
+  event.stopPropagation();
+  event.preventDefault();
+  return function({ open }) {
+    return { open: !open };
+  };
+}
+
+class SingleThread extends PureComponent {
+  state = { open: false };
+
+  render() {
+    return (
+      <Link href={`/${this.props.board}/${this.props.No}`}>
+        <div className="ms-ListBasicExample-itemCell">
+
+          <div>
+            {/*image and video*/}
+            <Image
+              onClick={e => this.setState(toggleImage(e))}
+              className="ms-ListBasicExample-itemImage"
+              src={getLowRes(this.props)}
+              width={50}
+              height={50}
+              imageFit={ImageFit.cover}
+            />
+
+            {/*text content*/}
+            <div className="ms-ListBasicExample-itemContent">
+
+              {/*title*/}
+              <div className="ms-ListBasicExample-itemName ms-font-xl">
+                {this.props.Sub}
+              </div>
+
+              {/*user data and date*/}
+              <DocumentCardActivity
+                activity={this.props.Now}
+                people={[
+                  {
+                    name: this.props.Name
+                  }
+                ]}
+              />
+
+              {/*description*/}
+              <div className="ms-ListBasicExample-itemDesc ms-font-s">
+                {this.props.Com ? <Description {...this.props} /> : null}
+              </div>
+
+            </div>
+          </div>
+
+          {this.state.open
+            ? <a
+                href={getHighRes(this.props)}
+                onClick={e => e.stopPropagation()}
+              >
+                <Image
+                  style={{ marginTop: "15px" }}
+                  src={getHighRes(this.props)}
+                />
+              </a>
+            : null}
+
+        </div>
+      </Link>
+    );
   }
-  arr.forEach((item, index) => {
-    const col = index % columns;
-    newArr[col].push(item);
-  });
-  return newArr;
 }
 
 function Component(props) {
-  const el = window;
-  let columns = 1;
-  if (el.innerWidth > 1600) {
-    columns = 6;
-  } else if (el.innerWidth > 1500) {
-    columns = 5;
-  } else if (el.innerWidth > 1100) {
-    columns = 4;
-  } else if (el.innerWidth > 870) {
-    columns = 3;
-  } else if (el.innerWidth > 500) {
-    columns = 2;
-  }
-
-  const threads = props.threads[`/${props.match.params.board}`] || [];
+  const board = props.match.params.board;
+  const threads = props.threads[`/${board}`] || [];
 
   return (
     <Page>
+
+      {/*page header*/}
       <Breadcrumb
         items={[
           {
@@ -62,32 +120,24 @@ function Component(props) {
         ]}
       />
 
+      {/*loader*/}
       {threads.length > 0 ? null : <Loader />}
 
+      {/*main content*/}
       <Container>
-        <table
-          cellPadding="0"
-          cellSpacing="0"
-          className="threadRootContainer"
-          style={{ tableLayout: "fixed", width: "100%" }}
-        >
-          <tbody>
-            <tr>
-              {reOrder(threads, columns).map((arr, index) => {
-                return (
-                  <td key={index} style={{ verticalAlign: "top" }}>
-                    {arr.map((thread, xindex) => {
-                      return SingleThread(props, thread, xindex);
-                    })}
-                  </td>
-                );
-              })}
-            </tr>
-          </tbody>
-        </table>
+        <FocusZone direction={FocusZoneDirection.vertical}>
+          <List
+            items={threads}
+            onRenderCell={(item, index) => (
+              <SingleThread {...item} board={board} index={index} />
+            )}
+          />
+        </FocusZone>
       </Container>
+
     </Page>
   );
 }
 
-export default ForceUpdateOnResize(Component);
+export default Component;
+// export default ForceUpdateOnResize(Component);

@@ -13,6 +13,9 @@ export const GlobalStyles = injectGlobal`
     color: white;
     height: 101vh;
   }
+  * {
+    outline: none !important;
+  }
   a {
     color: #81a2be;
   }
