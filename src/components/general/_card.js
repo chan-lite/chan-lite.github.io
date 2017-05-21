@@ -1,91 +1,136 @@
-import React from "react";
-import { injectGlobal } from "styled-components";
-import { Media, Description } from "./index.js";
-
-import {
-  DocumentCard,
-  DocumentCardActivity,
-  DocumentCardTitle
-} from "office-ui-fabric-react/lib/DocumentCard";
-
-function decode(someString) {
-  const txt = document.createElement("textarea");
-  txt.innerHTML = someString;
-  const decoded = txt.value;
-  txt.remove();
-  return decoded;
-}
+import React, { PureComponent } from "react";
+import { findDOMNode } from "react-dom";
+import Styled, { injectGlobal } from "styled-components";
+import { Image, ImageFit } from "office-ui-fabric-react/lib/Image";
+import { IMAGE_BASE } from "../../constants/";
+import { DocumentCardActivity } from "office-ui-fabric-react/lib/DocumentCard";
+import { Description } from "./index";
 
 export const cardStyles = injectGlobal`
-  .ms-DocumentCard {
-    border-width: 0 !important;
-    overflow: hidden;
-  }
-  .threadRootContainer .ms-DocumentCard {
-    @media (max-width: 500px) {
-      position: relative;
-      height: 150px;
-    }
-  }
-  .threadRootContainer .mobileLeft,
-  .threadRootContainer .mobileRight {
-    @media (max-width: 500px) {
-      top: 0;
-      right: 0;
-      position: absolute;
-      width: 50%;
-    }
-  }
-  .threadRootContainer .mobileLeft {
-    @media (max-width: 500px) {
-      left: 0;
-      height: 135px;
-      overflow: hidden;
-      width: calc(50% - 15px);
+  .ms-DocumentCardActivity {
+    padding: 0 0 15px !important;
+
+    .ms-DocumentCardActivity-details {
+      top: 0px;
+      left: 40px !important;
     }
   }
 `;
 
-export default function(props) {
-  const { board, item, showNumber } = props;
+const CardContainer = Styled.div`
+  background-color: #f4f4f4;
+  padding: 15px;
+  margin-top: 15px;
+  &:hover {
+    background-color: #eaeaea;
+  }
+  &:active {
+    background-color: #0078d7;
+  }
+  @media (max-width: 748px) {
+    margin-top: 2px;
+  }
+`;
 
-  return (
-    <DocumentCard style={{ position: "absolute" }}>
+const LargeImageContainer = Styled.div`
+  background-color: rgba(0, 0, 0, 0.1);
+  margin: 0 0 15px;
+  @media (max-width: 748px) {
+    margin: -15px -15px 15px;
+  }
+`;
 
-      <div className="mobileRight">
-        <Media imageHeight={props.imageHeight} board={board} {...item} />
-      </div>
+const TextContent = Styled.div`
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 15px;
+  width: calc(100% - 90px);
+`;
 
-      <div className="mobileLeft">
-        {item.Sub && !showNumber
-          ? <DocumentCardTitle
-              title={decode(item.Sub)}
-              shouldTruncate={false}
-            />
+function getHighRes({ board, Tim, Ext }) {
+  return `${IMAGE_BASE}${board}/${Tim}${Ext}`;
+}
+
+function getLowRes({ board, Tim, Ext }) {
+  return `${IMAGE_BASE}${board}/${Tim}s.jpg`;
+}
+
+function toggleImage(event) {
+  event.stopPropagation();
+  event.preventDefault();
+  return function({ open }) {
+    return { open: !open };
+  };
+}
+
+function scrollTo(element) {
+  window.scroll(0, findDOMNode(element).offsetTop);
+}
+
+function isHighlighted({ match, No }) {
+  return match.params.post === No.toString();
+}
+
+export default class extends PureComponent {
+  state = { open: false };
+  element = null;
+
+  componentDidMount() {
+    if (isHighlighted(this.props)) {
+      scrollTo(this.element);
+    }
+  }
+
+  componentDidUpdate() {
+    if (isHighlighted(this.props)) {
+      scrollTo(this.element);
+    }
+  }
+
+  render() {
+    return (
+      <CardContainer ref={o => (this.element = o)}>
+        {/*large image*/}
+        {this.state.open
+          ? <LargeImageContainer>
+              <a
+                href={getHighRes(this.props)}
+                onClick={e => e.stopPropagation()}
+              >
+                <Image src={getHighRes(this.props)} />
+              </a>
+            </LargeImageContainer>
           : null}
-
-        {showNumber
-          ? <DocumentCardTitle title={item.No} shouldTruncate={false} />
-          : null}
-
-        <DocumentCardActivity
-          activity={item.Now}
-          people={[
-            {
-              name: item.Name
-            }
-          ]}
-        />
-
-        {item.Com
-          ? <Description board={board} {...{ ...item, ...props }} />
-          : null}
-
-        {item.Com ? <div style={{ height: "15px" }} /> : null}
-      </div>
-
-      <div style={{ clear: "both" }} />
-
-    </DocumentCard>
-  );
+        {/*default content*/}
+        {/*image and video*/}
+        {this.props.Tim === 0
+          ? null
+          : <Image
+              onClick={e => this.setState(toggleImage(e))}
+              src={getLowRes(this.props)}
+              width={75}
+              height={75}
+              className="inline pointer"
+              imageFit={ImageFit.cover}
+            />}
+        {/*text content*/}
+        <TextContent
+          style={{
+            width: this.props.Tim === 0 ? "100%" : "something",
+            marginLeft: this.props.Tim === 0 ? "0" : "something"
+          }}
+        >
+          {/*title*/}
+          {this.props.Sub}
+          {/*user data and date*/}
+          <DocumentCardActivity
+            activity={this.props.Now}
+            people={[{ name: this.props.Name }]}
+          />
+          {/*description*/}
+          {this.props.Com ? <Description {...this.props} /> : null}
+        </TextContent>
+      </CardContainer>
+    );
+  }
 }

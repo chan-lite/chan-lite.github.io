@@ -26,6 +26,13 @@ export const GlobalStyles = injectGlobal`
     width: 100%;
     max-width: 100%;
   }
+  .inline {
+    display: inline-block;
+    vertical-align: top;
+  }
+  .pointer {
+    cursor: pointer;
+  }
   .quote {
     color: #789922;
   }

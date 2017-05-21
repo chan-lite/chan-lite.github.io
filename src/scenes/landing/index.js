@@ -1,20 +1,17 @@
 import React from "react";
-import { Breadcrumb } from "../../components/ui/";
-import Boards from "./boards";
-import { Container } from "./styles";
+import { RequestBoardsOnMount } from "../../decorators/requestBoardsOnMount";
+import { ReceiveBoardsAsProps } from "../../decorators/receiveBoardsAsProps";
+import Buttons from "./components";
+import { Header } from "../../components/ui/";
+import { Page } from "./styles";
+
+const Boards = RequestBoardsOnMount(ReceiveBoardsAsProps(Buttons));
 
 export default function() {
   return (
-    <Container>
-      <Breadcrumb
-        items={[
-          {
-            text: "/chanlite/",
-            href: "/"
-          }
-        ]}
-      />
+    <Page>
+      <Header items={[{ text: "/chanlite/", href: "/" }]} />
       <Boards />
-    </Container>
+    </Page>
   );
 }

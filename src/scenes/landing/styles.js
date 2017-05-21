@@ -42,7 +42,7 @@ export const landingStyles = injectGlobal`
   }
 `;
 
-export const Container = Styled.div`
+export const Page = Styled.div`
   padding: 15px 15px 250px;
   max-width: 600px;
   margin: 0 auto;
