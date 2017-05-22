@@ -1,4 +1,5 @@
 import React, { PureComponent } from "react";
+import { connect } from "react-redux";
 import Styled, { injectGlobal } from "styled-components";
 import {
   Dialog,
@@ -10,6 +11,7 @@ import {
   DefaultButton
 } from "office-ui-fabric-react/lib/Button";
 import { Panel, PanelType } from "office-ui-fabric-react/lib/Panel";
+import { Signup } from "../general/";
 
 const ButtonWrap = Styled.div`
   position: fixed;
@@ -34,22 +36,29 @@ export const optionsStyles = injectGlobal`
 
 const initialState = { open: false, login: false, create: false };
 
-export default class extends PureComponent {
+function toggle({ open }) {
+  return { ...initialState, ...{ open: !open } };
+}
+
+function toggleAccountOption(val) {
+  return state => {
+    state = { ...state, ...initialState };
+    state[val] = !state[val];
+    return state;
+  };
+}
+
+class Component extends PureComponent {
   state = initialState;
 
-  toggle = () => {
-    this.setState(({ open }) => {
-      return { ...initialState, ...{ open: !open } };
-    });
-  };
-
-  toggleAccountOption = val => () => {
-    this.setState(state => {
-      state = { ...state, ...initialState };
-      state[val] = !state[val];
-      return state;
-    });
-  };
+  componentWillReceiveProps({ signupModal }) {
+    if (!signupModal && this.props.signupModal) {
+      // signup modal was just dismissed
+      this.setState(() => {
+        return initialState;
+      });
+    }
+  }
 
   render() {
     return (
@@ -57,27 +66,26 @@ export default class extends PureComponent {
 
         <ButtonWrap>
           <PrimaryButton
-            data-automation-id="test"
             disabled={false}
             iconProps={{ iconName: "Add" }}
-            onClick={this.toggle}
+            onClick={() => this.setState(toggle)}
           />
         </ButtonWrap>
 
         <Dialog
           isOpen={this.state.open}
           type={DialogType.normal}
-          onDismiss={this.toggle}
+          onDismiss={() => this.setState(toggle)}
           title="Account Options"
           isBlocking={false}
         >
           <DialogFooter>
             <PrimaryButton
-              onClick={this.toggleAccountOption("login")}
+              onClick={() => this.setState(toggleAccountOption("login"))}
               text="Login"
             />
             <DefaultButton
-              onClick={this.toggleAccountOption("create")}
+              onClick={() => this.setState(toggleAccountOption("create"))}
               text="Create account"
             />
           </DialogFooter>
@@ -85,7 +93,7 @@ export default class extends PureComponent {
 
         <Panel
           isOpen={this.state.login}
-          onDismiss={this.toggleAccountOption("login")}
+          onDismiss={() => this.setState(toggleAccountOption("login"))}
           type={PanelType.medium}
           headerText="Login"
         >
@@ -94,14 +102,22 @@ export default class extends PureComponent {
 
         <Panel
           isOpen={this.state.create}
-          onDismiss={this.toggleAccountOption("create")}
+          onDismiss={() => this.setState(toggleAccountOption("create"))}
           type={PanelType.medium}
           headerText="Create account"
         >
-          account create
+          <Signup />
         </Panel>
 
       </div>
     );
   }
 }
+
+function mapState({ Account }) {
+  return {
+    signupModal: Account.signupModal
+  };
+}
+
+export default connect(mapState)(Component);

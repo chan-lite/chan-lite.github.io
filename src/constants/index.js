@@ -16,3 +16,5 @@ export function GET_THREADS(board: string, page: number) {
 export function GET_POSTS(board: string, thread: string) {
   return `${BASE}thread/${board}/${thread}`;
 }
+
+export const POST_SIGNUP = `${BASE}user/create`;
