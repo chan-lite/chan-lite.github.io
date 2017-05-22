@@ -11,7 +11,25 @@ import {
   DefaultButton
 } from "office-ui-fabric-react/lib/Button";
 import { Panel, PanelType } from "office-ui-fabric-react/lib/Panel";
-import { Signup } from "../general/";
+import { Signup, Login } from "../general/";
+import { setUserToken } from "../../actions/account";
+
+export const optionsStyles = injectGlobal`
+  .actionBtn {
+    button {
+      min-width: 32px;
+      border-radius: 50%;
+      padding: 24px 14px;
+      box-shadow: 2px 3px 8px #212121;
+    }
+  }
+
+  .ms-Dialog-action {
+    button {
+      margin-right: 15px;
+    }
+  }
+`;
 
 const ButtonWrap = Styled.div`
   position: fixed;
@@ -23,15 +41,8 @@ const ButtonWrap = Styled.div`
   }
 `;
 
-export const optionsStyles = injectGlobal`
-  .actionBtn {
-    button {
-      min-width: 32px;
-      border-radius: 50%;
-      padding: 24px 14px;
-      box-shadow: 2px 3px 8px #212121;
-    }
-  }
+const TextLeft = Styled.div`
+  text-align: left;
 `;
 
 const initialState = { open: false, login: false, create: false };
@@ -48,17 +59,25 @@ function toggleAccountOption(val) {
   };
 }
 
+function resetState() {
+  return initialState;
+}
+
 class Component extends PureComponent {
   state = initialState;
 
   componentWillReceiveProps({ signupModal }) {
     if (!signupModal && this.props.signupModal) {
       // signup modal was just dismissed
-      this.setState(() => {
-        return initialState;
-      });
+      this.setState(resetState);
     }
   }
+
+  handleLogout = () => {
+    this.props.logout();
+    this.setState(resetState);
+    alert("Logout complete");
+  };
 
   render() {
     return (
@@ -80,14 +99,22 @@ class Component extends PureComponent {
           isBlocking={false}
         >
           <DialogFooter>
-            <PrimaryButton
-              onClick={() => this.setState(toggleAccountOption("login"))}
-              text="Login"
-            />
-            <DefaultButton
-              onClick={() => this.setState(toggleAccountOption("create"))}
-              text="Create account"
-            />
+
+            {this.props.loggedIn
+              ? <TextLeft>
+                  <PrimaryButton onClick={this.handleLogout} text="Logout" />
+                </TextLeft>
+              : <TextLeft>
+                  <PrimaryButton
+                    onClick={() => this.setState(toggleAccountOption("login"))}
+                    text="Login"
+                  />
+                  <DefaultButton
+                    onClick={() => this.setState(toggleAccountOption("create"))}
+                    text="Create account"
+                  />
+                </TextLeft>}
+
           </DialogFooter>
         </Dialog>
 
@@ -97,7 +124,7 @@ class Component extends PureComponent {
           type={PanelType.medium}
           headerText="Login"
         >
-          account login
+          <Login />
         </Panel>
 
         <Panel
@@ -116,8 +143,17 @@ class Component extends PureComponent {
 
 function mapState({ Account }) {
   return {
-    signupModal: Account.signupModal
+    signupModal: Account.signupModal,
+    loggedIn: Account.token !== false
   };
 }
 
-export default connect(mapState)(Component);
+function mapDispatch(dispatch) {
+  return {
+    logout: () => {
+      dispatch(setUserToken(false));
+    }
+  };
+}
+
+export default connect(mapState, mapDispatch)(Component);
