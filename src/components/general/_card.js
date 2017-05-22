@@ -14,6 +14,12 @@ export const cardStyles = injectGlobal`
       top: 0px;
       left: 40px !important;
     }
+
+    .ms-DocumentCardActivity-avatar {
+      &:after {
+        border-color: transparent;
+      }
+    }
   }
 `;
 
