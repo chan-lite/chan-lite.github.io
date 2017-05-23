@@ -33,7 +33,7 @@ class Component extends PureComponent {
   }
 
   handleSubmit = () => {
-    const { email, password, vPassword } = this.state;
+    const { email, password } = this.state;
 
     if (email.length < 1) {
       alert("Enter an email");

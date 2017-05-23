@@ -3,12 +3,18 @@
 import { injectGlobal } from "styled-components";
 
 export const GlobalStyles = injectGlobal`
+  html {
+    background-image: url('/background.png');
+    background-size: contain;
+    background-position: center center;
+    background-attachment: fixed;
+  }
   body {
     margin: 0;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #212121;
+    // background-color: #212121;
     font-family: Arial, sans-serif;
     color: white;
     height: 101vh;

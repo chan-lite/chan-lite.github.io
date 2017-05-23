@@ -21,6 +21,9 @@ export const cardStyles = injectGlobal`
       }
     }
   }
+  .ms-Image {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
 `;
 
 const CardContainer = Styled.div`
@@ -38,8 +41,7 @@ const CardContainer = Styled.div`
   }
 `;
 
-const LargeImageContainer = Styled.div`
-  background-color: rgba(0, 0, 0, 0.1);
+const LargeMediaContainer = Styled.div`
   margin: 0 0 15px;
   @media (max-width: 748px) {
     margin: -15px -15px 15px;
@@ -77,6 +79,34 @@ function isHighlighted({ match, No }) {
   return match.params.post === No.toString();
 }
 
+function ImageComponent(props) {
+  return (
+    <a href={getHighRes(props)} onClick={e => e.stopPropagation()}>
+      <Image src={getHighRes(props)} />
+    </a>
+  );
+}
+
+function VideoComponent(props) {
+  return <video src={getHighRes(props)} controls />;
+}
+
+const mediaElements = {
+  jpg: ImageComponent,
+  png: ImageComponent,
+  jpeg: ImageComponent,
+  gif: ImageComponent,
+  webm: VideoComponent
+};
+function MediaComponent(props) {
+  const Jsx = mediaElements[props.Ext.replace(".", "")];
+  return (
+    <LargeMediaContainer>
+      <Jsx {...props} />
+    </LargeMediaContainer>
+  );
+}
+
 export default class extends PureComponent {
   state = { open: false };
   element = null;
@@ -97,16 +127,7 @@ export default class extends PureComponent {
     return (
       <CardContainer ref={o => (this.element = o)}>
         {/*large image*/}
-        {this.state.open
-          ? <LargeImageContainer>
-              <a
-                href={getHighRes(this.props)}
-                onClick={e => e.stopPropagation()}
-              >
-                <Image src={getHighRes(this.props)} />
-              </a>
-            </LargeImageContainer>
-          : null}
+        {this.state.open ? <MediaComponent {...this.props} /> : null}
         {/*default content*/}
         {/*image and video*/}
         {this.props.Tim === 0
