@@ -14,21 +14,15 @@ const Spacer = Styled.div`
   height: 15px;
 `;
 
-function toggleLoading({ loading }) {
-  return { loading: !loading };
-}
+const toggle = val => state => (state[val] = !state[val]);
 
 class Component extends PureComponent {
-  state = {
-    email: "",
-    password: "",
-    loading: false
-  };
+  state = { email: "", password: "", loading: false };
 
   componentWillReceiveProps({ loading }) {
     if (!loading && this.props.loading) {
       // signup modal was just dismissed
-      this.setState(toggleLoading);
+      this.setState(toggle("loading"));
     }
   }
 
@@ -44,7 +38,7 @@ class Component extends PureComponent {
       return;
     }
 
-    this.setState(toggleLoading, this.props.login(this.state));
+    this.setState(toggle("loading"), this.props.login(this.state));
   };
 
   handleChange = name => val => {
