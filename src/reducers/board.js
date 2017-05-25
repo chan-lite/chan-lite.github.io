@@ -8,14 +8,16 @@ const initial = {
   threads: {}
 };
 
+function getPostsFromThread({ Posts }) {
+  const post = Posts[0];
+  post.Replies = [];
+  return post;
+}
+
 export default function(state: StateType = initial, action: ActionType) {
   switch (action.type) {
     case "SET_THREADS": {
-      const aThreads = action.payload.threads.map(data => {
-        const aPosts = data.Posts[0];
-        aPosts.Replies = [];
-        return aPosts;
-      });
+      const aThreads = action.payload.threads.map(getPostsFromThread);
 
       const data = {};
       data[action.payload.name] = aThreads;
@@ -25,9 +27,7 @@ export default function(state: StateType = initial, action: ActionType) {
     }
 
     case "ADD_THREADS": {
-      const aThreads = action.payload.threads.map(data => {
-        return data.Posts[0];
-      });
+      const aThreads = action.payload.threads.map(getPostsFromThread);
 
       const data = {};
       const board = action.payload.name;
