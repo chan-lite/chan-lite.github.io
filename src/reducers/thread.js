@@ -13,7 +13,17 @@ export default function(state: StateType = initial, action: ActionType) {
     case "SET_POSTS": {
       const somePosts = action.payload.posts.map(aPost => {
         aPost["highlighted"] = false;
+        aPost["Replies"] = [];
         return aPost;
+      });
+
+      // Add replies to each post
+      somePosts.forEach(({ Com, No }) => {
+        somePosts.forEach((child, index) => {
+          if (Com.indexOf(`&gt;&gt;${child.No}`) > -1) {
+            somePosts[index].Replies.push(No);
+          }
+        });
       });
 
       const data = {};

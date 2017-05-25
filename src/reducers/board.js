@@ -11,7 +11,11 @@ const initial = {
 export default function(state: StateType = initial, action: ActionType) {
   switch (action.type) {
     case "SET_THREADS": {
-      const aThreads = action.payload.threads.map(data => data.Posts[0]);
+      const aThreads = action.payload.threads.map(data => {
+        const aPosts = data.Posts[0];
+        aPosts.Replies = [];
+        return aPosts;
+      });
 
       const data = {};
       data[action.payload.name] = aThreads;

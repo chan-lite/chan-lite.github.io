@@ -4,6 +4,13 @@ import Styled, { injectGlobal } from "styled-components";
 import { Image, ImageFit } from "office-ui-fabric-react/lib/Image";
 import { IMAGE_BASE } from "../../constants/";
 import { DocumentCardActivity } from "office-ui-fabric-react/lib/DocumentCard";
+import { connect } from "react-redux";
+import { push } from "react-router-redux";
+import {
+  ContextualMenu,
+  DirectionalHint
+} from "office-ui-fabric-react/lib/ContextualMenu";
+import { DefaultButton } from "office-ui-fabric-react/lib/Button";
 import { Description } from "./index";
 
 export const cardStyles = injectGlobal`
@@ -53,6 +60,17 @@ const TextContent = Styled.div`
   vertical-align: top;
   margin-left: 15px;
   width: calc(100% - 90px);
+`;
+
+const RepliesContainer = Styled.div`
+  color: black;
+  position: relative;
+  margin-top: 15px;
+  background-color: rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  button {
+    background-color: transparent;
+  }
 `;
 
 function getHighRes({ board, Tim, Ext }) {
@@ -107,6 +125,49 @@ function MediaComponent(props) {
   );
 }
 
+class RepliesComponent extends PureComponent {
+  state = { open: false };
+
+  toggleOpen = () => {
+    this.setState(({ open }) => ({ open: !open }));
+  };
+
+  handleItemClick = reply => () => {
+    this.props.navigate(`/${this.props.board}/${this.props.thread}/${reply}`);
+  };
+
+  render() {
+    const id = `replies-btn-${this.props.No}`;
+
+    return (
+      <RepliesContainer>
+        <DefaultButton onClick={this.toggleOpen} id={id} text="Replies" />
+        {this.state.open
+          ? <ContextualMenu
+              target={`#${id}`}
+              shouldFocusOnMount={false}
+              onDismiss={this.toggleOpen}
+              directionalHint={DirectionalHint.bottomLeftEdge}
+              items={this.props.Replies.map((reply, index) => {
+                return {
+                  key: index,
+                  name: reply,
+                  canCheck: true,
+                  isChecked: false,
+                  onClick: this.handleItemClick(reply)
+                };
+              })}
+            />
+          : null}
+      </RepliesContainer>
+    );
+  }
+}
+
+const Replies = connect(null, dispatch => ({
+  navigate: url => dispatch(push(url))
+}))(RepliesComponent);
+
 export default class extends PureComponent {
   state = { open: false };
   element = null;
@@ -157,6 +218,8 @@ export default class extends PureComponent {
           {/*description*/}
           {this.props.Com ? <Description {...this.props} /> : null}
         </TextContent>
+        {/*Replies Container*/}
+        {this.props.Replies.length > 0 ? <Replies {...this.props} /> : null}
       </CardContainer>
     );
   }

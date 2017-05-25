@@ -14,9 +14,9 @@ function getHeaderItems(board, thread) {
   ];
 }
 
-function getCard(board, props) {
+function getCard(board, thread, props) {
   return (item, index) => (
-    <Card key={index} {...props} {...item} board={board} />
+    <Card key={index} {...props} {...item} board={board} thread={thread} />
   );
 }
 
@@ -31,7 +31,9 @@ export default function(props) {
   return (
     <Page>
       <Header items={getHeaderItems(board, thread)} />
-      {items.length === 0 ? <Loader /> : items.map(getCard(board, props))}
+      {items.length === 0
+        ? <Loader />
+        : items.map(getCard(board, thread, props))}
     </Page>
   );
 }
