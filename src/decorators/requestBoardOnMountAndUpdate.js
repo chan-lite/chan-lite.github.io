@@ -15,7 +15,10 @@ export function RequestBoardOnMountAndUpdate(Decorated) {
         this.props.requestBoard(this.props.match.params.board, this.props.page);
       }
       componentWillReceiveProps(nextProps) {
-        if (this.props.page !== nextProps.page) {
+        if (
+          this.props.page !== nextProps.page ||
+          this.props.match.params.board !== nextProps.match.params.board
+        ) {
           nextProps.requestBoard(nextProps.match.params.board, nextProps.page);
         }
       }
