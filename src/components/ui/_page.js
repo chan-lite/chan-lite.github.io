@@ -8,20 +8,20 @@ type PropsType = {
   children?: Element<any>
 };
 
-export default function(props: PropsType) {
-  const { children, width } = props;
+const Page = Styled.div`
+  padding: 15px 15px 250px;
+  max-width: 700px;
+  margin: 0 auto;
+  @media (max-width: 748px) {
+    padding: 0;
+    margin-top: -2px;
+  }
+`;
 
-  const Page = Styled.div`
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 15px 15px 250px;
-    @media (max-width: 748px) {
-      padding: 15px 0 50px;
-    }
-  `;
+export default function(props: PropsType) {
   return (
     <Page>
-      {children}
+      {props.children}
     </Page>
   );
 }

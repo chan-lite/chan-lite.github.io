@@ -1,7 +1,6 @@
 import React from "react";
-import { Page } from "./styles";
 import { Card } from "../../components/general/";
-import { Header, Loader } from "../../components/ui/";
+import { Header, Loader, Page } from "../../components/ui/";
 
 /**
  * Helper functions
