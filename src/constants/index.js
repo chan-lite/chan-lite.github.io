@@ -20,3 +20,9 @@ export function GET_POSTS(board: string, thread: string) {
 export const POST_SIGNUP = `${BASE}user/create`;
 
 export const POST_LOGIN = `${BASE}user/signin`;
+
+export const SAVE_THREAD = `${BASE}`;
+
+export function GET_SAVE_THREAD(board, thread) {
+  return `/chan/user/save/thread/${board}/${thread}`;
+}

@@ -2,7 +2,7 @@ import React from "react";
 import { RequestBoardsOnMount } from "../../decorators/requestBoardsOnMount";
 import { ReceiveBoardsAsProps } from "../../decorators/receiveBoardsAsProps";
 import Buttons from "./components";
-import { Header, Page } from "../../components/ui/";
+import { Header, Page, Options } from "../../components/ui/";
 
 const Boards = RequestBoardsOnMount(ReceiveBoardsAsProps(Buttons));
 
@@ -11,6 +11,7 @@ export default function() {
     <Page>
       <Header items={[{ text: "/chanlite/", href: "/" }]} />
       <Boards />
+      <Options />
     </Page>
   );
 }

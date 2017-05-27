@@ -1,6 +1,6 @@
 import React from "react";
 import { Card } from "../../components/general/";
-import { Header, Loader, Link, Page } from "../../components/ui/";
+import { Header, Loader, Link, Page, Options } from "../../components/ui/";
 
 /**
  * Helper functions
@@ -32,6 +32,7 @@ export default function(props) {
     <Page>
       <Header items={getHeaderItems(board)} />
       {items.length === 0 ? <Loader /> : items.map(getCard(board, props))}
+      <Options />
     </Page>
   );
 }

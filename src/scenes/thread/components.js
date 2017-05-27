@@ -1,6 +1,6 @@
 import React from "react";
 import { Card } from "../../components/general/";
-import { Header, Loader, Page } from "../../components/ui/";
+import { Header, Loader, Page, Options } from "../../components/ui/";
 
 /**
  * Helper functions
@@ -33,6 +33,7 @@ export default function(props) {
       {items.length === 0
         ? <Loader />
         : items.map(getCard(board, thread, props))}
+      <Options board={board} thread={thread} />
     </Page>
   );
 }

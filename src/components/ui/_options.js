@@ -13,6 +13,7 @@ import {
 import { Panel, PanelType } from "office-ui-fabric-react/lib/Panel";
 import { Signup, Login } from "../general/";
 import { setUserToken } from "../../actions/account";
+import { saveThread } from "../../actions/thread";
 
 export const optionsStyles = injectGlobal`
   .actionBtn {
@@ -79,6 +80,10 @@ class Component extends PureComponent {
     alert("Logout complete");
   };
 
+  handleSaveThread = () => {
+    this.props.saveThread(this.props.board, this.props.thread);
+  };
+
   render() {
     return (
       <div className="actionBtn">
@@ -103,6 +108,20 @@ class Component extends PureComponent {
             {this.props.loggedIn
               ? <TextLeft>
                   <PrimaryButton onClick={this.handleLogout} text="Logout" />
+
+                  {/*
+                  save thread button
+                  if user is signed in and 
+                  if user is on a thread scene
+                  */}
+                  {this.props.thread !== "undefined" &&
+                    this.props.board !== "undefined"
+                    ? <DefaultButton
+                        onClick={this.handleSaveThread}
+                        text="Save thread"
+                      />
+                    : null}
+
                 </TextLeft>
               : <TextLeft>
                   <PrimaryButton
@@ -152,6 +171,9 @@ function mapDispatch(dispatch) {
   return {
     logout: () => {
       dispatch(setUserToken(false));
+    },
+    saveThread: (board, thread) => {
+      dispatch(saveThread(board, thread));
     }
   };
 }
