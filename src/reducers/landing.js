@@ -5,7 +5,8 @@ import type { ActionType } from "./types";
 type StateType = Object;
 
 const initial = {
-  boards: []
+  boards: [],
+  savedBoards: []
 };
 
 export default function(state: StateType = initial, action: ActionType) {
@@ -13,6 +14,17 @@ export default function(state: StateType = initial, action: ActionType) {
     case "SET_BOARDS": {
       return Object.assign({}, state, {
         boards: action.payload.map(({ Board, Title }) => {
+          return {
+            board: Board,
+            title: Title
+          };
+        })
+      });
+    }
+
+    case "SET_SAVED_BOARDS": {
+      return Object.assign({}, state, {
+        savedBoards: action.payload.map(({ Board, Title }) => {
           return {
             board: Board,
             title: Title

@@ -5,7 +5,6 @@ import { Spinner, SpinnerSize } from "office-ui-fabric-react/lib/Spinner";
 const Wrap = Styled.div`
   padding-top: 150px;
   overflow: hidden;
-  transform: scale(1.25);
 `;
 
 export default function() {

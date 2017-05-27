@@ -25,10 +25,10 @@ function filterBoards(boards, userInput) {
   }
 }
 
-function getRow({ board, title }, index) {
+function getRow({ board, title, linkPrepend = "/" }, index) {
   return (
     <ButtonContainer key={index}>
-      <Link href={`/${board}`}>
+      <Link href={`${linkPrepend}${board}`}>
         <CompoundButton description={title}>
           {`/${board}/`}
         </CompoundButton>

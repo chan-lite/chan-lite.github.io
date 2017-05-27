@@ -7,7 +7,7 @@ export function setUserToken(token) {
   };
 }
 
-function setAccountModal(status) {
+export function setAccountModal(status) {
   return {
     type: "SET_USER_MODAL_SIGNUP",
     payload: status
@@ -38,7 +38,6 @@ export function signup(email, password) {
         alert(message);
         throw new Error(message);
       }
-      alert("Signup complete");
       dispatch(setUserToken(token));
       // trigger updates in components
       dispatch(setAccountModal(true));
@@ -68,7 +67,6 @@ export function login(email, password) {
         alert(message);
         throw new Error(message);
       }
-      alert("Login complete");
       dispatch(setUserToken(token));
       // trigger updates in components
       dispatch(setAccountModal(true));

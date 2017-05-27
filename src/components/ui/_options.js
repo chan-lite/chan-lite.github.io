@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
+import { push } from "react-router-redux";
 import Styled, { injectGlobal } from "styled-components";
 import {
   Dialog,
@@ -25,9 +26,16 @@ export const optionsStyles = injectGlobal`
     }
   }
 
+  .ms-Dialog-main {
+    .ms-Dialog-inner {
+      padding-bottom: 0;
+    }
+  }
+
   .ms-Dialog-action {
     button {
       margin-right: 15px;
+      margin-bottom: 15px;
     }
   }
 `;
@@ -77,7 +85,6 @@ class Component extends PureComponent {
   handleLogout = () => {
     this.props.logout();
     this.setState(resetState);
-    alert("Logout complete");
   };
 
   handleSaveThread = () => {
@@ -109,13 +116,19 @@ class Component extends PureComponent {
               ? <TextLeft>
                   <PrimaryButton onClick={this.handleLogout} text="Logout" />
 
+                  {/*View saved threads*/}
+                  <DefaultButton
+                    onClick={this.props.navigate("/saved")}
+                    text="View saved"
+                  />
+
                   {/*
                   save thread button
                   if user is signed in and 
                   if user is on a thread scene
                   */}
-                  {this.props.thread !== "undefined" &&
-                    this.props.board !== "undefined"
+                  {typeof this.props.thread !== "undefined" &&
+                    typeof this.props.board !== "undefined"
                     ? <DefaultButton
                         onClick={this.handleSaveThread}
                         text="Save thread"
@@ -174,7 +187,8 @@ function mapDispatch(dispatch) {
     },
     saveThread: (board, thread) => {
       dispatch(saveThread(board, thread));
-    }
+    },
+    navigate: url => () => dispatch(push(url))
   };
 }
 

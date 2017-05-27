@@ -1,7 +1,7 @@
 // @flow
 
-export const BASE = "https://proxy-chan-go.herokuapp.com/chan/";
-// export const BASE = "http://localhost:5000/chan/";
+// export const BASE = "https://proxy-chan-go.herokuapp.com/chan/";
+export const BASE = "http://localhost:5000/chan/";
 
 export const CHAN_BASE = "https://i.4cdn.org/";
 
@@ -21,8 +21,8 @@ export const POST_SIGNUP = `${BASE}user/create`;
 
 export const POST_LOGIN = `${BASE}user/signin`;
 
-export const SAVE_THREAD = `${BASE}`;
-
 export function GET_SAVE_THREAD(board, thread) {
-  return `/chan/user/save/thread/${board}/${thread}`;
+  return `${BASE}user/save/thread/${board}/${thread}`;
 }
+
+export const SAVED_LANDING = `${BASE}user/save/get/landing`;

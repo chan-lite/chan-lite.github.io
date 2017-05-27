@@ -14,6 +14,9 @@ import createHistory from "history/createHashHistory";
 import LandingScene from "./scenes/landing/";
 import BoardScene from "./scenes/board/";
 import ThreadScene from "./scenes/thread/";
+import SavedLandingScene from "./scenes/landing/saved";
+import SavedBoardScene from "./scenes/board/saved";
+import SavedThreadScene from "./scenes/thread/saved";
 import Reducers from "./reducers/";
 import "./styles/";
 
@@ -32,6 +35,14 @@ render(
       <Provider store={store}>
         <HashRouter>
           <Switch>
+            <Route
+              path="/saved/:board/:thread/:post"
+              component={SavedThreadScene}
+            />
+            <Route path="/saved/:board/:thread" component={SavedThreadScene} />
+            <Route path="/saved/:board" component={SavedBoardScene} />
+            <Route path="/saved" component={SavedLandingScene} />
+
             <Route path="/:board/:thread/:post" component={ThreadScene} />
             <Route path="/:board/:thread" component={ThreadScene} />
             <Route path="/:board" component={BoardScene} />
