@@ -61,7 +61,7 @@ export default function(state: StateType = initial, action: ActionType) {
       data[board] = (state.savedThreads[board] || []).concat(aThreads);
 
       const threads = Object.assign({}, state.savedThreads, data);
-      return Object.assign({}, state, { savedThreads: threads });
+      return Object.assign({}, state, { savedThreads: uniqueThreads(threads) });
     }
 
     case "ADD_SAVE_THREADS": {
@@ -72,7 +72,7 @@ export default function(state: StateType = initial, action: ActionType) {
       data[board] = state.savedThreads[board].concat(aThreads);
 
       const threads = Object.assign({}, state.savedThreads, data);
-      return Object.assign({}, state, { savedThreads: threads });
+      return Object.assign({}, state, { savedThreads: uniqueThreads(threads) });
     }
 
     default: {

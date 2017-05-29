@@ -117,23 +117,23 @@ class Component extends PureComponent {
                   <PrimaryButton onClick={this.handleLogout} text="Logout" />
 
                   {/*View saved threads*/}
-                  {/*<DefaultButton
+                  <DefaultButton
                     onClick={this.props.navigate("/saved")}
                     text="View saved"
-                  />*/}
+                  />
 
                   {/*
                   save thread button
                   if user is signed in and 
                   if user is on a thread scene
                   */}
-                  {/*{typeof this.props.thread !== "undefined" &&
+                  {typeof this.props.thread !== "undefined" &&
                     typeof this.props.board !== "undefined"
                     ? <DefaultButton
                         onClick={this.handleSaveThread}
                         text="Save thread"
                       />
-                    : null}*/}
+                    : null}
 
                 </TextLeft>
               : <TextLeft>

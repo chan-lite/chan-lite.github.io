@@ -14,7 +14,7 @@ function getHeaderItems(board) {
 
 function getCard(board, props) {
   return (item, index) => (
-    <Link key={index} href={`/${board}/${item.No}`}>
+    <Link key={index} href={`${props.prepend || ""}/${board}/${item.No}`}>
       <Card {...item} {...props} board={board} />
     </Link>
   );

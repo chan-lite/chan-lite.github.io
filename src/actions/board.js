@@ -1,6 +1,6 @@
 // @flow
 
-import { GET_THREADS, GET_SAVE_THREAD } from "../constants/";
+import { GET_THREADS, GET_SAVED_BOARD } from "../constants/";
 import type { DispatchType } from "./types";
 
 function setBoards(data) {
@@ -52,7 +52,7 @@ function addSavedBoard(data) {
 }
 
 export function requestSavedBoards(board, page, perPage) {
-  const loc = GET_SAVE_THREAD(board, page, perPage);
+  const loc = GET_SAVED_BOARD(board, page, perPage);
   return async function(dispatch, getState) {
     const { token } = getState().Account;
     const data = new FormData();
