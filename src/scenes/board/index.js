@@ -4,6 +4,7 @@ import {
 } from "../../decorators/requestBoardOnMountAndUpdate";
 import { ReceiveThreadsAsProps } from "../../decorators/receiveThreadsAsProps";
 import { BindScrollBehavior } from "../../decorators/bindScrollBehavior";
+import ScrollTopOnMount from "../../decorators/scrolltop";
 import Component from "./components";
 
 // we override this on mount
@@ -11,11 +12,13 @@ import Component from "./components";
 // re-rendering on page back
 let scrollHandler = () => {};
 
-const ChildComponent = RequestBoardOnMountAndUpdate(
-  ReceiveThreadsAsProps(
-    BindScrollBehavior(Component, () => {
-      scrollHandler();
-    })
+const ChildComponent = ScrollTopOnMount(
+  RequestBoardOnMountAndUpdate(
+    ReceiveThreadsAsProps(
+      BindScrollBehavior(Component, () => {
+        scrollHandler();
+      })
+    )
   )
 );
 
