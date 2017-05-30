@@ -14,8 +14,10 @@ export function requestBoards() {
   return async function(dispatch: DispatchType) {
     try {
       const response = await fetch(BOARDS);
-      const { Boards } = await response.json();
-      dispatch(setBoards(Boards));
+      const { Boards, success } = await response.json();
+      if (typeof success === "undefined") {
+        dispatch(setBoards(Boards));
+      }
     } catch (err) {
       // console.log(err);
     }

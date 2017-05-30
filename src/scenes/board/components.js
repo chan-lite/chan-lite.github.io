@@ -28,6 +28,9 @@ export default function(props) {
   const board = match.params.board;
   const items = threads[`/${board}`] || [];
 
+  console.log(threads);
+  console.log(items);
+
   return (
     <Page>
       <Header items={getHeaderItems(board)} />

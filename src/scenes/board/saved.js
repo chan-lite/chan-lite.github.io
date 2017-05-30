@@ -67,12 +67,8 @@ export default class extends PureComponent {
   state = { page: 1 };
 
   componentDidMount() {
-    scrollHandler = this.handleNearBottom;
+    scrollHandler = () => this.setState(incrementPage);
   }
-
-  handleNearBottom = () => {
-    this.setState(incrementPage);
-  };
 
   render() {
     return <ChildComponent prepend="/saved" {...this.props} {...this.state} />;

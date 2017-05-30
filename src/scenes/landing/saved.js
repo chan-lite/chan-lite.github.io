@@ -30,7 +30,7 @@ function requestSavedBoards() {
         const { Boards } = await request.json();
         dispatch(setBoards(Boards));
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     }
   };

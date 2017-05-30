@@ -60,15 +60,17 @@ export function requestSavedBoards(board, page, perPage) {
     const options = { method: "POST", body: data };
     try {
       const request = await fetch(loc, options);
-      const { Threads } = await request.json();
+      const { Threads, success } = await request.json();
       const data = {
         name: `/${board}`,
         threads: Threads
       };
-      if (page === 1) {
-        dispatch(setSavedBoards(data));
-      } else {
-        dispatch(addSavedBoard(data));
+      if (typeof success === "undefined") {
+        if (page === 1) {
+          dispatch(setSavedBoards(data));
+        } else {
+          dispatch(addSavedBoard(data));
+        }
       }
     } catch (err) {
       console.log(err);

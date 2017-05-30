@@ -15,16 +15,22 @@ function getPostsFromThread({ Posts }) {
   return post;
 }
 
-function filterThreads(thread, index, all) {
-  const numbers = all.map(({ No }) => No);
-  const count = numbers.filter(num => num === thread.No);
-  return count.length === 1;
+function filter(threads) {
+  const uniqueThreads = [];
+  for (let e = 0; e < threads.length; e++) {
+    const current = threads[e];
+    const count = uniqueThreads.filter(({ No }) => No === current.No);
+    if (count.length === 0) {
+      uniqueThreads.push(current);
+    }
+  }
+  return uniqueThreads;
 }
 
 function uniqueThreads(threadsObj) {
   for (const key in threadsObj) {
     if (threadsObj.hasOwnProperty(key)) {
-      threadsObj[key] = threadsObj[key].filter(filterThreads);
+      threadsObj[key] = filter(threadsObj[key]);
     }
   }
   return threadsObj;
