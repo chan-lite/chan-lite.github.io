@@ -73,7 +73,7 @@ export function requestSavedBoards(board, page, perPage) {
         }
       }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 }

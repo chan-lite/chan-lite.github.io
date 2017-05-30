@@ -133,7 +133,9 @@ class RepliesComponent extends PureComponent {
   };
 
   handleItemClick = reply => () => {
-    this.props.navigate(`/${this.props.board}/${this.props.thread}/${reply}`);
+    this.props.navigate(
+      `${this.props.prepend || ""}/${this.props.board}/${this.props.thread}/${reply}`
+    );
   };
 
   render() {

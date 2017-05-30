@@ -59,12 +59,12 @@ class Description extends PureComponent {
       const thread = threadParts[0];
       const postParts = threadParts[1];
       const post = postParts.replace("p", "");
-      return `/${board}/${thread}/${post}`;
+      return `${this.props.prepend || ""}/${board}/${thread}/${post}`;
     } else {
       const postParts = href.split("#p");
       const post = postParts[postParts.length - 1];
       const { board, thread } = this.props.match.params;
-      return `/${board}/${thread}/${post}`;
+      return `${this.props.prepend || ""}/${board}/${thread}/${post}`;
     }
   }
 
