@@ -21,6 +21,9 @@ export const landingStyles = injectGlobal`
       }
     }
     .ms-Button--compound {
+      &:focus {
+        outline: 3px dotted #f1f1f1 !important;
+      }
       width: 100%;
       max-width: 99999px;
       overflow: hidden;

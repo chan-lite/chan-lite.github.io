@@ -42,11 +42,20 @@ class Description extends PureComponent {
     this.getQuotes().forEach(quoteNode => {
       quoteNode.addEventListener("click", this.handleClick);
     });
+    this.getAllLinks().forEach(quoteNode => {
+      quoteNode.tabIndex = -1;
+    });
   }
 
   getQuotes() {
     const el = findDOMNode(this.element);
     const nodes = el.querySelectorAll(".quotelink");
+    return Array.prototype.slice.call(nodes);
+  }
+
+  getAllLinks() {
+    const el = findDOMNode(this.element);
+    const nodes = el.querySelectorAll("a");
     return Array.prototype.slice.call(nodes);
   }
 

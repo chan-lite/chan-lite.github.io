@@ -33,7 +33,11 @@ export const cardStyles = injectGlobal`
   }
 `;
 
-const CardContainer = Styled.div`
+const CardContainer = Styled.button`
+  display: block;
+  border-width: 0;
+  text-align: left; 
+  width: 100%;
   background-color: #f4f4f4;
   padding: 15px;
   margin-top: 15px;
@@ -42,6 +46,9 @@ const CardContainer = Styled.div`
   }
   &:active {
     background-color: #0078d7;
+  }
+  &:focus {
+    outline: 3px dotted #f1f1f1 !important;
   }
   @media (max-width: 748px) {
     margin-top: 2px;
@@ -143,7 +150,12 @@ class RepliesComponent extends PureComponent {
 
     return (
       <RepliesContainer>
-        <DefaultButton onClick={this.toggleOpen} id={id} text="Replies" />
+        <DefaultButton
+          tabIndex={-1}
+          onClick={this.toggleOpen}
+          id={id}
+          text="Replies"
+        />
         {this.state.open
           ? <ContextualMenu
               target={`#${id}`}

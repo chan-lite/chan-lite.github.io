@@ -29,6 +29,12 @@ export const breadcrumbStyles = injectGlobal`
       padding: 0 15px 5px !important;
       color: white !important;
       font-weight: 800 !important;
+      &:focus,
+      &:active {
+        outline: 3px dotted #f1f1f1 !important;
+        background-color: #f4f4f4;
+        color: black !important;
+      }
 
       &:hover {
         color: black !important;
