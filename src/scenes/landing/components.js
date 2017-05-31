@@ -1,9 +1,18 @@
 import React, { PureComponent } from "react";
+import Styled from "styled-components";
 import { Link, Loader } from "../../components/ui/";
 // import { AnimateOnChange } from "../../components/general/";
 import { Row, ButtonContainer } from "./styles";
 import { SearchBox } from "office-ui-fabric-react/lib/SearchBox";
 import { CompoundButton } from "office-ui-fabric-react/lib/Button";
+
+const Empty = Styled.h1`
+  text-align: center;
+  padding: 50px 0;
+  font-size: 18px;
+  text-transform: lowercase;
+  font-weight: normal;
+`;
 
 function textChange(text) {
   return function(state) {
@@ -43,12 +52,24 @@ export default class extends PureComponent {
   render() {
     const boards = filterBoards(this.props.boards, this.state.userInput);
 
+    console.log(this.props.loadingSavedComplete);
+
+    let notLoading = boards.length > 0 || this.state.userInput !== "";
+
+    const showEmptyMessage =
+      typeof this.props.loadingSavedComplete !== "undefined" &&
+      this.props.loadingSavedComplete &&
+      boards.length === 0;
+
+    if (showEmptyMessage) {
+      notLoading = true;
+    }
+
     return (
       <div className="buttonRootContainer">
         <SearchBox onChange={e => this.setState(textChange(e))} />
-        {boards.length > 0 || this.state.userInput !== ""
-          ? <Row> {boards.map(getRow)} </Row>
-          : <Loader />}
+        {notLoading ? <Row> {boards.map(getRow)} </Row> : <Loader />}
+        {showEmptyMessage ? <Empty>Nothing to see here</Empty> : null}
       </div>
     );
   }

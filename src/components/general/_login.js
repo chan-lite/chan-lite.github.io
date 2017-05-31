@@ -9,22 +9,12 @@ import { login } from "../../actions/account";
 const Container = Styled.div`
   max-width: 400px;
 `;
-
 const Spacer = Styled.div`
   height: 15px;
 `;
 
-const toggle = val => state => (state[val] = !state[val]);
-
 class Component extends PureComponent {
   state = { email: "", password: "", loading: false };
-
-  componentWillReceiveProps({ loading }) {
-    if (!loading && this.props.loading) {
-      // signup modal was just dismissed
-      this.setState(toggle("loading"));
-    }
-  }
 
   handleSubmit = () => {
     const { email, password } = this.state;
@@ -38,7 +28,7 @@ class Component extends PureComponent {
       return;
     }
 
-    this.setState(toggle("loading"), this.props.login(this.state));
+    this.setState(() => ({ loading: true }), this.props.login(this.state));
   };
 
   handleChange = name => val => {
@@ -72,16 +62,10 @@ class Component extends PureComponent {
   }
 }
 
-function stateMap({ Account }) {
-  return {
-    loading: Account.signupLoading
-  };
-}
-
 function actionsMap(dispatch) {
   return {
     login: ({ email, password }) => () => dispatch(login(email, password))
   };
 }
 
-export default connect(stateMap, actionsMap)(Component);
+export default connect(null, actionsMap)(Component);

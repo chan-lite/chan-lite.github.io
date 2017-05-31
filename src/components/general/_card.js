@@ -211,11 +211,11 @@ export default class extends PureComponent {
           }}
         >
           {/*title*/}
-          {this.props.Sub}
+          {/*{unescape(this.props.Sub)}*/}
           {/*user data and date*/}
           <DocumentCardActivity
             activity={this.props.Now}
-            people={[{ name: this.props.Name }]}
+            people={[{ name: unescape(this.props.Name) }]}
           />
           {/*description*/}
           {this.props.Com ? <Description {...this.props} /> : null}

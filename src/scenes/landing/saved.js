@@ -48,7 +48,8 @@ function attachPrependedLink(board) {
 function mapStateToProps({ Landing, Account }) {
   return {
     boards: Landing.savedBoards.map(attachPrependedLink),
-    token: Account.token
+    token: Account.token,
+    loadingSavedComplete: Landing.loadingSavedComplete
   };
 }
 

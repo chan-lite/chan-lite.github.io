@@ -31,23 +31,20 @@ export function signup(email, password) {
   const options = { method: "POST", body: data };
 
   return async function(dispatch) {
+    // Eager
+    dispatch(setAccountModal(false));
+    dispatch(setAccountLoading(false));
+
     try {
       const request = await fetch(POST_SIGNUP, options);
       const { success, token, message } = await request.json();
       if (!success) {
         alert(message);
-        throw new Error(message);
+      } else {
+        dispatch(setUserToken(token));
       }
-      dispatch(setUserToken(token));
-      // trigger updates in components
-      dispatch(setAccountModal(true));
-      dispatch(setAccountModal(false));
     } catch (err) {
-      // console.log(err);
-    } finally {
-      // trigger updates in components
-      dispatch(setAccountLoading(true));
-      dispatch(setAccountLoading(false));
+      alert("An unexpected error has occurred.");
     }
   };
 }
@@ -69,7 +66,6 @@ export function login(email, password) {
       const { success, token, message } = await request.json();
       if (!success) {
         alert(message);
-        dispatch(setAccountModal(true));
       } else {
         dispatch(setUserToken(token));
       }

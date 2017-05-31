@@ -6,7 +6,8 @@ type StateType = Object;
 
 const initial = {
   boards: [],
-  savedBoards: []
+  savedBoards: [],
+  loadingSavedComplete: false
 };
 
 export default function(state: StateType = initial, action: ActionType) {
@@ -24,7 +25,8 @@ export default function(state: StateType = initial, action: ActionType) {
 
     case "SET_SAVED_BOARDS": {
       return Object.assign({}, state, {
-        savedBoards: action.payload.map(({ Board, Title }) => {
+        loadingSavedComplete: true,
+        savedBoards: (action.payload || []).map(({ Board, Title }) => {
           return {
             board: Board,
             title: Title

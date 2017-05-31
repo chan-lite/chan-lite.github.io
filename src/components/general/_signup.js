@@ -9,29 +9,12 @@ import { signup } from "../../actions/account";
 const Container = Styled.div`
   max-width: 400px;
 `;
-
 const Spacer = Styled.div`
   height: 15px;
 `;
 
-function toggleLoading({ loading }) {
-  return { loading: !loading };
-}
-
 class Component extends PureComponent {
-  state = {
-    email: "",
-    password: "",
-    vPassword: "",
-    loading: false
-  };
-
-  componentWillReceiveProps({ loading }) {
-    if (!loading && this.props.loading) {
-      // signup modal was just dismissed
-      this.setState(toggleLoading);
-    }
-  }
+  state = { email: "", password: "", vPassword: "", loading: false };
 
   handleSubmit = () => {
     const { email, password, vPassword } = this.state;
@@ -53,7 +36,7 @@ class Component extends PureComponent {
       return;
     }
 
-    this.setState(toggleLoading, this.props.signup(this.state));
+    this.setState(() => ({ loading: false }), this.props.signup(this.state));
   };
 
   handleChange = name => val => {
@@ -92,16 +75,10 @@ class Component extends PureComponent {
   }
 }
 
-function stateMap({ Account }) {
-  return {
-    loading: Account.signupLoading
-  };
-}
-
 function actionsMap(dispatch) {
   return {
     signup: ({ email, password }) => () => dispatch(signup(email, password))
   };
 }
 
-export default connect(stateMap, actionsMap)(Component);
+export default connect(null, actionsMap)(Component);
