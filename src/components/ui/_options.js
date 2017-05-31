@@ -22,7 +22,7 @@ export const optionsStyles = injectGlobal`
       min-width: 32px;
       border-radius: 50%;
       padding: 24px 14px;
-      box-shadow: 2px 3px 8px #212121;
+      // box-shadow: 2px 3px 8px #212121;
     }
   }
 
