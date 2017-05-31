@@ -37,10 +37,15 @@ export function highlightPost(params) {
 export function saveThread(board, thread) {
   const loc = GET_SAVE_THREAD(board, thread);
   return async function(dispatch, getState) {
+    // Build data
     const { token } = getState().Account;
     const data = new FormData();
     data.append("token", token);
     const options = { method: "POST", body: data };
+    // Eager
+    dispatch(setAccountModal(true));
+    dispatch(setAccountModal(false));
+    // Make request
     try {
       const request = await fetch(loc, options);
       const { success, message } = await request.json();
@@ -49,10 +54,6 @@ export function saveThread(board, thread) {
       }
     } catch (err) {
       alert("An unexpected error has occurred");
-    } finally {
-      // trigger updates in components
-      dispatch(setAccountModal(true));
-      dispatch(setAccountModal(false));
     }
   };
 }

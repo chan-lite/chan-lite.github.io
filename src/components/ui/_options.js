@@ -54,37 +54,23 @@ const TextLeft = Styled.div`
   text-align: left;
 `;
 
-const initialState = { open: false, login: false, create: false };
-
-function toggle({ open }) {
-  return { ...initialState, ...{ open: !open } };
-}
-
-function toggleAccountOption(val) {
-  return state => {
-    state = { ...state, ...initialState };
-    state[val] = !state[val];
-    return state;
-  };
-}
-
-function resetState() {
-  return initialState;
+function getInitialState() {
+  return { open: false, login: false, create: false };
 }
 
 class Component extends PureComponent {
-  state = initialState;
+  state = getInitialState();
 
   componentWillReceiveProps({ signupModal }) {
-    if (!signupModal && this.props.signupModal) {
-      // signup modal was just dismissed
-      this.setState(resetState);
+    if (!signupModal) {
+      // We have triggered a dismiss
+      this.setState(getInitialState);
     }
   }
 
   handleLogout = () => {
     this.props.logout();
-    this.setState(resetState);
+    this.setState(getInitialState);
   };
 
   handleSaveThread = () => {
@@ -99,14 +85,14 @@ class Component extends PureComponent {
           <PrimaryButton
             disabled={false}
             iconProps={{ iconName: "Add" }}
-            onClick={() => this.setState(toggle)}
+            onClick={() => this.setState(() => ({ open: true }))}
           />
         </ButtonWrap>
 
         <Dialog
           isOpen={this.state.open}
           type={DialogType.normal}
-          onDismiss={() => this.setState(toggle)}
+          onDismiss={() => this.setState(getInitialState)}
           title="Account Options"
           isBlocking={false}
         >
@@ -138,11 +124,11 @@ class Component extends PureComponent {
                 </TextLeft>
               : <TextLeft>
                   <PrimaryButton
-                    onClick={() => this.setState(toggleAccountOption("login"))}
+                    onClick={() => this.setState(() => ({ login: true }))}
                     text="Login"
                   />
                   <DefaultButton
-                    onClick={() => this.setState(toggleAccountOption("create"))}
+                    onClick={() => this.setState(() => ({ create: true }))}
                     text="Create account"
                   />
                 </TextLeft>}
@@ -152,7 +138,7 @@ class Component extends PureComponent {
 
         <Panel
           isOpen={this.state.login}
-          onDismiss={() => this.setState(toggleAccountOption("login"))}
+          onDismiss={() => this.setState(getInitialState)}
           type={PanelType.medium}
           headerText="Login"
         >
@@ -161,7 +147,7 @@ class Component extends PureComponent {
 
         <Panel
           isOpen={this.state.create}
-          onDismiss={() => this.setState(toggleAccountOption("create"))}
+          onDismiss={() => this.setState(getInitialState)}
           type={PanelType.medium}
           headerText="Create account"
         >
@@ -182,12 +168,8 @@ function mapState({ Account }) {
 
 function mapDispatch(dispatch) {
   return {
-    logout: () => {
-      dispatch(setUserToken(false));
-    },
-    saveThread: (board, thread) => {
-      dispatch(saveThread(board, thread));
-    },
+    logout: () => dispatch(setUserToken(false)),
+    saveThread: (board, thread) => dispatch(saveThread(board, thread)),
     navigate: url => () => dispatch(push(url))
   };
 }
