@@ -119,8 +119,8 @@ function saveToLocalStorage(props) {
       }
       localStorage.setItem(`chan-lite:image:${props.Tim}`, imgAsDataURL);
     } catch (err) {
-      console.log(err);
       localStorageClearLast();
+      saveImage();
     }
   }
   return saveImage;
