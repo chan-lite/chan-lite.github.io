@@ -31,6 +31,17 @@ export const cardStyles = injectGlobal`
   .ms-Image {
     background-color: rgba(0, 0, 0, 0.1);
   }
+
+  .custom-image {
+    img {
+      object-fit: cover;
+      height: 100% !important;
+      top: 0 !important;
+      left: 0 !important;
+      height: 100% !important;
+      transform: none !important;
+    }
+  }
 `;
 
 const CardContainer = Styled.button`
@@ -90,22 +101,29 @@ function getLowRes({ board, Tim, Ext }) {
 }
 
 function saveToLocalStorage(props) {
-  return function(event) {
+  function saveImage(event) {
+    if (event.target.src.indexOf("data:image/") > -1) return;
+
     const elephant = event.target;
     const imgCanvas = document.createElement("canvas");
     const imgContext = imgCanvas.getContext("2d");
 
-    imgCanvas.width = props.Tn_w;
+    imgCanvas.width = props.Tn_w || props.Tn_W;
     imgCanvas.height = props.Tn_H;
-    imgContext.drawImage(elephant, 0, 0, props.Tn_w, props.Tn_H);
+    imgContext.drawImage(elephant, 0, 0, props.Tn_w || props.Tn_W, props.Tn_H);
 
     try {
       const imgAsDataURL = imgCanvas.toDataURL("image/png");
+      if (imgAsDataURL.length < 10) {
+        throw new Error("image sucks");
+      }
       localStorage.setItem(`chan-lite:image:${props.Tim}`, imgAsDataURL);
     } catch (err) {
+      console.log(err);
       localStorageClearLast();
     }
-  };
+  }
+  return saveImage;
 }
 
 function localStorageClearLast() {
@@ -243,7 +261,7 @@ export default class extends PureComponent {
               crossOrigin="anonymous"
               width={75}
               height={75}
-              className="inline pointer"
+              className="inline pointer custom-image"
               imageFit={ImageFit.cover}
             />}
         {/*text content*/}
