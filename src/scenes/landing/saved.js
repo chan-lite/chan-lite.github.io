@@ -59,16 +59,24 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
+function checkTokenMakeRequest({ token, requestBoards }, oldProps) {
+  if (oldProps) {
+    if (oldProps.token !== token) {
+      requestBoards();
+    }
+  } else if (token) {
+    requestBoards();
+  }
+}
+
 function savedBoardsConnect(Decorated) {
   return connect(mapStateToProps, mapDispatchToProps)(
     class extends PureComponent {
       componentDidMount() {
-        this.props.requestBoards();
+        checkTokenMakeRequest(this.props);
       }
-      componentWillReceiveProps({ token }) {
-        if (!this.props.token && token !== this.props.token) {
-          this.props.requestBoards();
-        }
+      componentWillReceiveProps(nextProps) {
+        checkTokenMakeRequest(nextProps, this.props);
       }
       render() {
         return <Decorated {...this.props} />;
@@ -87,7 +95,7 @@ export default function() {
   return (
     <Page>
       <Header items={[{ text: "/chanlite/", href: "/" }]} />
-      <Boards />
+      <Boards checkLogin={true} />
       <Options />
     </Page>
   );

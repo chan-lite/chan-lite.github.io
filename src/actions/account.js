@@ -49,6 +49,12 @@ export function signup(email, password) {
   };
 }
 
+export function setUserLogout() {
+  return {
+    type: "SET_USER_LOGOUT"
+  };
+}
+
 export function login(email, password) {
   const data = new FormData();
   data.append("email", email);

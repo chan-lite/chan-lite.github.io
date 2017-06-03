@@ -31,7 +31,7 @@ export default function(props) {
     <Page>
       <Header items={getHeaderItems(board, thread)} />
       {items.length === 0
-        ? <Loader />
+        ? <Loader checkLogin={props.checkLogin} />
         : items.map(getCard(board, thread, props))}
       <Options board={board} thread={thread} />
     </Page>

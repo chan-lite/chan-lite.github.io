@@ -13,7 +13,7 @@ import {
 } from "office-ui-fabric-react/lib/Button";
 import { Panel, PanelType } from "office-ui-fabric-react/lib/Panel";
 import { Signup, Login } from "../general/";
-import { setUserToken } from "../../actions/account";
+import { setUserLogout } from "../../actions/account";
 import { saveThread } from "../../actions/thread";
 
 export const optionsStyles = injectGlobal`
@@ -168,7 +168,7 @@ function mapState({ Account }) {
 
 function mapDispatch(dispatch) {
   return {
-    logout: () => dispatch(setUserToken(false)),
+    logout: () => dispatch(setUserLogout()),
     saveThread: (board, thread) => dispatch(saveThread(board, thread)),
     navigate: url => () => dispatch(push(url))
   };

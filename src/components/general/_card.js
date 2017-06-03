@@ -85,7 +85,36 @@ function getHighRes({ board, Tim, Ext }) {
 }
 
 function getLowRes({ board, Tim, Ext }) {
-  return `${IMAGE_BASE}${board}/${Tim}s.jpg`;
+  const saved = localStorage.getItem(`chan-lite:image:${Tim}`);
+  return saved !== null ? saved : `${IMAGE_BASE}${board}/${Tim}s.jpg`;
+}
+
+function saveToLocalStorage(props) {
+  return function(event) {
+    const elephant = event.target;
+    const imgCanvas = document.createElement("canvas");
+    const imgContext = imgCanvas.getContext("2d");
+
+    imgCanvas.width = props.Tn_w;
+    imgCanvas.height = props.Tn_H;
+    imgContext.drawImage(elephant, 0, 0, props.Tn_w, props.Tn_H);
+
+    try {
+      const imgAsDataURL = imgCanvas.toDataURL("image/png");
+      localStorage.setItem(`chan-lite:image:${props.Tim}`, imgAsDataURL);
+    } catch (err) {
+      localStorageClearLast();
+    }
+  };
+}
+
+function localStorageClearLast() {
+  for (let i = 0; i < localStorage.length; i++) {
+    if (localStorage.key(i).indexOf("chan-lite:image:") > -1) {
+      localStorage.removeItem(localStorage.key(i));
+      return;
+    }
+  }
 }
 
 function toggleImage(event) {
@@ -210,6 +239,8 @@ export default class extends PureComponent {
           : <Image
               onClick={e => this.setState(toggleImage(e))}
               src={getLowRes(this.props)}
+              onLoad={saveToLocalStorage(this.props)}
+              crossOrigin="anonymous"
               width={75}
               height={75}
               className="inline pointer"

@@ -54,10 +54,15 @@ function addSavedBoard(data) {
 export function requestSavedBoards(board, page, perPage) {
   const loc = GET_SAVED_BOARD(board, page, perPage);
   return async function(dispatch, getState) {
+    // Get/check token.
     const { token } = getState().Account;
+    if (!token) return;
+
+    // Build data.
     const data = new FormData();
     data.append("token", token);
     const options = { method: "POST", body: data };
+
     try {
       const request = await fetch(loc, options);
       const { Threads, success } = await request.json();

@@ -25,8 +25,19 @@ function connectToSaved(DecoratedComponent) {
       componentDidMount() {
         this.props.requestSavedPosts(this.props.match.params);
       }
+      componentWillReceiveProps({ token, match, requestSavedPosts }) {
+        if (token !== this.props.token) {
+          requestSavedPosts(match.params);
+        }
+      }
       render() {
-        return <DecoratedComponent prepend="/saved" {...this.props} />;
+        return (
+          <DecoratedComponent
+            checkLogin={true}
+            prepend="/saved"
+            {...this.props}
+          />
+        );
       }
     }
   );

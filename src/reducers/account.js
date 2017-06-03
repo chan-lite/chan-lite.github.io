@@ -9,6 +9,9 @@ export default function(state = initial, { type, payload }) {
     case "SET_USER_TOKEN": {
       return Object.assign({}, state, { token: payload });
     }
+    case "SET_USER_LOGOUT": {
+      return Object.assign({}, state, { token: false });
+    }
 
     case "SET_USER_MODAL_SIGNUP": {
       return Object.assign({}, state, { signupModal: payload });

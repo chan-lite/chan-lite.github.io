@@ -61,10 +61,15 @@ export function saveThread(board, thread) {
 export function requestSavedPosts(board, thread) {
   const loc = GET_SAVED_POST(board, thread);
   return async function(dispatch, getState) {
+    // Get/check token.
     const { token } = getState().Account;
+    if (!token) return;
+
+    // Build data.
     const data = new FormData();
     data.append("token", token);
     const options = { method: "POST", body: data };
+
     try {
       const request = await fetch(loc, options);
       const { Posts, success } = await request.json();

@@ -48,6 +48,10 @@ export default function(state: StateType = initial, action: ActionType) {
       return Object.assign({}, state, { threads: uniqueThreads(threads) });
     }
 
+    case "SET_USER_LOGOUT": {
+      return Object.assign({}, state, { savedThreads: {} });
+    }
+
     case "ADD_THREADS": {
       const aThreads = action.payload.threads.map(getPostsFromThread);
 

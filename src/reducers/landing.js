@@ -23,6 +23,10 @@ export default function(state: StateType = initial, action: ActionType) {
       });
     }
 
+    case "SET_USER_LOGOUT": {
+      return Object.assign({}, state, { savedBoards: [] });
+    }
+
     case "SET_SAVED_BOARDS": {
       return Object.assign({}, state, {
         loadingSavedComplete: true,

@@ -31,7 +31,9 @@ export default function(props) {
   return (
     <Page>
       <Header items={getHeaderItems(board)} />
-      {items.length === 0 ? <Loader /> : items.map(getCard(board, props))}
+      {items.length === 0
+        ? <Loader checkLogin={props.checkLogin} />
+        : items.map(getCard(board, props))}
       <Options />
     </Page>
   );

@@ -1,7 +1,7 @@
 // @flow
 
-export const BASE = "https://proxy-chan-go.herokuapp.com/chan/";
-// export const BASE = "http://localhost:5000/chan/";
+// export const BASE = "https://proxy-chan-go.herokuapp.com/chan/";
+export const BASE = "http://localhost:5000/chan/";
 
 export const CHAN_BASE = "https://i.4cdn.org/";
 
@@ -33,7 +33,7 @@ export function GET_SAVED_BOARD(board, page, perPage) {
 
 // Get the current posts from saved
 export function GET_SAVED_POST(board, thread) {
-  return `${BASE}user/save/thread/${board}/${thread}`;
+  return `${BASE}user/save/get/thread/${board}/${thread}`;
 }
 
 export const SAVED_LANDING = `${BASE}user/save/get/landing`;

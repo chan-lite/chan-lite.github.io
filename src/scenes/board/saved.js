@@ -7,9 +7,10 @@ import { requestSavedBoards } from "../../actions/board";
 
 // HOC start
 
-function mapState({ Board }) {
+function mapState({ Board, Account }) {
   return {
-    threads: Board.savedThreads
+    threads: Board.savedThreads,
+    token: Account.token
   };
 }
 
@@ -26,8 +27,10 @@ function GetSavedThreads(DecoratedComponent) {
       componentDidMount() {
         this.request();
       }
-      componentWillReceiveProps({ page }) {
+      componentWillReceiveProps({ page, token }) {
         if (page !== this.props.page) {
+          this.request();
+        } else if (token !== this.props.token) {
           this.request();
         }
       }
@@ -71,6 +74,13 @@ export default class extends PureComponent {
   }
 
   render() {
-    return <ChildComponent prepend="/saved" {...this.props} {...this.state} />;
+    return (
+      <ChildComponent
+        checkLogin={true}
+        prepend="/saved"
+        {...this.props}
+        {...this.state}
+      />
+    );
   }
 }

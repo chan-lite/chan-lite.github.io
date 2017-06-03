@@ -52,8 +52,6 @@ export default class extends PureComponent {
   render() {
     const boards = filterBoards(this.props.boards, this.state.userInput);
 
-    console.log(this.props.loadingSavedComplete);
-
     let notLoading = boards.length > 0 || this.state.userInput !== "";
 
     const showEmptyMessage =
@@ -68,7 +66,9 @@ export default class extends PureComponent {
     return (
       <div className="buttonRootContainer">
         <SearchBox onChange={e => this.setState(textChange(e))} />
-        {notLoading ? <Row> {boards.map(getRow)} </Row> : <Loader />}
+        {notLoading
+          ? <Row> {boards.map(getRow)} </Row>
+          : <Loader checkLogin={this.props.checkLogin} />}
         {showEmptyMessage ? <Empty>Nothing to see here</Empty> : null}
       </div>
     );
