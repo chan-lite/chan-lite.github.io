@@ -102,6 +102,7 @@ function getLowRes({ board, Tim, Ext }) {
 
 function saveToLocalStorage(props) {
   function saveImage(event) {
+    if (!Boolean(event)) return;
     if (event.target.src.indexOf("data:image/") > -1) return;
 
     const elephant = event.target;
@@ -263,6 +264,7 @@ export default class extends PureComponent {
               height={75}
               className="inline pointer custom-image"
               imageFit={ImageFit.cover}
+              shouldStartVisible={true}
             />}
         {/*text content*/}
         <TextContent

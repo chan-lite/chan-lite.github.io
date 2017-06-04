@@ -9,6 +9,7 @@ import { push } from "react-router-redux";
 const Article = Styled.article`
   overflow: hidden;
   color: black;
+  font-size: 12px;
 `;
 
 type PropsType = {
