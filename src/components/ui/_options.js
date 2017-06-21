@@ -16,6 +16,20 @@ import { Signup, Login } from "../general/";
 import { setUserLogout } from "../../actions/account";
 import { saveThread } from "../../actions/thread";
 
+function ChanLink({ board, thread }) {
+  if (typeof board === "undefined" || typeof thread === "undefined") {
+    return null;
+  }
+
+  const link = `http://boards.4chan.org/${board}/thread/${thread}`;
+
+  return (
+    <a href={link}>
+      <DefaultButton text="View on 4chan" />
+    </a>
+  );
+}
+
 export const optionsStyles = injectGlobal`
   .actionBtn {
     button {
@@ -121,6 +135,12 @@ class Component extends PureComponent {
                       />
                     : null}
 
+                  {/*Link to the 4chan thread*/}
+                  <ChanLink
+                    thread={this.props.thread}
+                    board={this.props.board}
+                  />
+
                 </TextLeft>
               : <TextLeft>
                   <PrimaryButton
@@ -130,6 +150,11 @@ class Component extends PureComponent {
                   <DefaultButton
                     onClick={() => this.setState(() => ({ create: true }))}
                     text="Create account"
+                  />
+                  {/*Link to the 4chan thread*/}
+                  <ChanLink
+                    thread={this.props.thread}
+                    board={this.props.board}
                   />
                 </TextLeft>}
 
