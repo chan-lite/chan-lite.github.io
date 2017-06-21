@@ -31,6 +31,32 @@ function ChanLink({ board, thread }) {
 }
 
 export const optionsStyles = injectGlobal`
+  .ms-Dialog.is-open {
+    opacity: 1 !important;
+  }
+
+  .ms-Dialog.is-open > div {
+    animation-name: fadeIn;
+    animation-fill-mode: both;
+    animation-duration: 250ms;
+  }
+
+  .ms-Dialog.is-open.is-closing > div {
+    animation-name: fadeOut;
+    animation-fill-mode: both;
+    animation-duration: 250ms;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+
   .actionBtn {
     button {
       min-width: 32px;
@@ -91,6 +117,15 @@ class Component extends PureComponent {
     this.props.saveThread(this.props.board, this.props.thread);
   };
 
+  handleDismiss = () => {
+    const element = document.querySelector(".is-open.ms-Dialog");
+    element.className = `${element.className} is-closing`;
+    setTimeout(() => {
+      element.remove();
+      this.setState(getInitialState);
+    }, 250);
+  };
+
   render() {
     return (
       <div className="actionBtn">
@@ -106,7 +141,7 @@ class Component extends PureComponent {
         <Dialog
           isOpen={this.state.open}
           type={DialogType.normal}
-          onDismiss={() => this.setState(getInitialState)}
+          onDismiss={this.handleDismiss}
           title="Account Options"
           isBlocking={false}
         >
@@ -163,7 +198,7 @@ class Component extends PureComponent {
 
         <Panel
           isOpen={this.state.login}
-          onDismiss={() => this.setState(getInitialState)}
+          onDismiss={this.handleDismiss}
           type={PanelType.medium}
           headerText="Login"
         >
@@ -172,7 +207,7 @@ class Component extends PureComponent {
 
         <Panel
           isOpen={this.state.create}
-          onDismiss={() => this.setState(getInitialState)}
+          onDismiss={this.handleDismiss}
           type={PanelType.medium}
           headerText="Create account"
         >
